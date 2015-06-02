@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Item
+public class Item extends Contribution
 {
   private final LinkedList<Bid> bids;
   private String name;
@@ -15,6 +15,7 @@ public class Item
   /**
    * @return the description
    */
+  @Override
   public String getDescription()
   {
     return description;
@@ -38,14 +39,18 @@ public class Item
    */
   public int getId()
   {
-    return id;
+    return ID;
   }
 
+  public double getValue() 
+  {
+    return this.statistics.getHighest().getAmount();
+  }
 
-
+  
   private User donor;
   private double appraisal;
-  public final int id;
+  public final int ID;
   private static int counter = 0;
   public Item()
   {
@@ -53,11 +58,12 @@ public class Item
   }
   public Item(String name, String description, double appraisal, User donor)
   {
+    super(donor.ID, appraisal);
     this.bids = new LinkedList<Bid>();
     this.name = name;
     this.donor = donor;
     this.appraisal = appraisal;
-    this.id = name.hashCode();
+    this.ID = counter++;
     this.description = description;
     this.statistics = new Stats();
   }
@@ -67,7 +73,7 @@ public class Item
   }
   public Bid addBid(User user, double amount)
   {
-    return this.addBid(new Bid(amount, user.name.hashCode()));
+    return this.addBid(new Bid(user.name.hashCode(), amount));
   }
 
   public Bid addBid(Bid bid)
@@ -75,7 +81,10 @@ public class Item
     this.bids.add(bid);
     return bid;
   }
-  
+  public double getCurrentBid()
+  {
+    return this.bids.getLast().getAmount();
+  }
   
   
   public class Stats extends Statistics
@@ -101,14 +110,9 @@ public class Item
     }
     
     
-    public Bid getHighestBidAmt()
+    public int getHighestBidderId()
     {
-      return bids.getLast();
-    }
-    
-    public int getHighestBidder()
-    {
-      return bids.getLast().hashCode();
+      return (int) bids.getLast().getBidder();
     }
     
     
@@ -165,13 +169,36 @@ public class Item
     
     public double getAppraisal()
     {
-      return this.getAppraisal();
+      return getValue();
     }
     
-    @Override
     public Bid getHighest()
     {
       return bids.getLast();
+    }
+
+
+    @Override
+    public Item getHighestBid()
+    {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+
+    @Override
+    public int getTotalBids()
+    {
+      // TODO Auto-generated method stub
+      return 0;
+    }
+
+
+    @Override
+    public int getAverageBids()
+    {
+      // TODO Auto-generated method stub
+      return 0;
     }
     
   }

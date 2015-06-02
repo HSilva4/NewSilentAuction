@@ -11,13 +11,13 @@ public class Donor extends User {
 		super(name, email, phone);
 		this.donations = new LinkedList<Contribution>();
 	}
-	
-	  public void donate(final double cash)
-	  {
-	    this.donate(new Cash(cash));
-	  }
-	  public void donate(final Contribution contribution)
-	  {
-	    this.donations.add(contribution);
-	  }
+
+  public void donate(final double cash)
+  {
+    this.donate(new Cash(this.getId(), cash));
+  }
+  public void donate(final Contribution contribution)
+  {
+    this.donations.add(contribution);
+  }
 }

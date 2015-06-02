@@ -8,7 +8,7 @@ abstract class User implements EventListener
   protected final int ID;
   protected final String email;
   protected final String phone;
-
+  // 
   
   public User(final String name, final String email, final String phone)
   {
@@ -16,8 +16,14 @@ abstract class User implements EventListener
     this.ID = hashCode();
     this.email = email;
     this.phone = phone;
-    
+    //comment
   }
+  
+  public int getId()
+  {
+    return this.ID;
+  }
+  
   @Override
   public int hashCode()
   {

@@ -3,21 +3,38 @@ package backend;
 
 public abstract class Contribution
 {
-  
-  private int bidderId;
+  private double value;
+  public final int ID;
   private long timestamp;
-  public Contribution(int bidderId)
+  private String description;
+  private int donor;
+  private static int counter = 0;
+  public Contribution(int id, double value)
   {
-    this.bidderId = bidderId;
+    this(id, value, "None provided");
+  }
+  public Contribution(int id, double value, String description)
+  {
+    this.ID = counter++;
+    this.donor = id;
+    this.value = value;
     this.timestamp = System.currentTimeMillis();
-    
+    this.description = description;
   }
-  public int getBidder()
+  protected String getDescription()
   {
-    return this.bidderId;
+    return this.description;
   }
-  public long getTimeStamp()
+  protected int getUser()
+  {
+    return this.donor;
+  }
+  protected long getTimeStamp()
   {
     return this.timestamp;
+  }
+  protected double getValue()
+  {
+    return value;
   }
 }
