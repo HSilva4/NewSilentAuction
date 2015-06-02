@@ -161,8 +161,11 @@ public class Registration extends JPanel
 				String name = nameField.getText();
 				String email = emailField.getText();
 				String phoneNumber = phoneField.getText();
-				if (phoneNumber.length() != 10 || !phoneNumber.matches("[0-9]+")) {
+				if (!phoneNumber.matches(Validations.PHONE)) {
 					JOptionPane.showMessageDialog(null, "Please enter a valid phone number");
+				}
+				else if (!email.matches(Validations.EMAIL)) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Thank you for registering, " + name);

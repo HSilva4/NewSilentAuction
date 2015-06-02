@@ -47,6 +47,9 @@ public class Home extends JPanel
 	private ArrayList<Item> items = Page.Auction.statistics.filter(0, null);//TODO: delete after getting offical list
 //	private ArrayList<String> itemNames;
 	
+	private JList<String> homeItemsList;
+	private JScrollPane homeScrollPane;
+	
 //Constructor
 	
 	/**
@@ -149,12 +152,12 @@ public class Home extends JPanel
 		homeItemsPanel.setLayout(new BorderLayout(0, 0));
 		
 		//the scroll pane
-		JScrollPane homeScrolPane = new JScrollPane();
-		homeItemsPanel.add(homeScrolPane, BorderLayout.CENTER);
+		homeScrollPane = new JScrollPane();
+		homeItemsPanel.add(homeScrollPane, BorderLayout.CENTER);
 		
 		//items to bid on label
 		JLabel homeItemstoBidLabel = new JLabel("Items to Bid On");
-		homeScrolPane.setColumnHeaderView(homeItemstoBidLabel);
+		homeScrollPane.setColumnHeaderView(homeItemstoBidLabel);
 		
 //		/****************************************************************************************************************************/
 //		
@@ -187,7 +190,7 @@ public class Home extends JPanel
 			StringOfItems[i] = i + ": " + items.get(i).getName() + " " + items.get(i).statistics.getHighest().getAmount();
 			itemField.setText(StringOfItems[i]);
 		}
-		JList<String> homeItemsList = new JList<String>(StringOfItems);
+		homeItemsList = new JList<String>(StringOfItems);
 
 		homeItemsList.setModel(new AbstractListModel()
 		{
@@ -203,7 +206,7 @@ public class Home extends JPanel
 		});
 		
 		homeItemsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	//allows only a single item to be selected
-		homeScrolPane.setViewportView(homeItemsList);
+		homeScrollPane.setViewportView(homeItemsList);
 		
 		//bid button
 		JButton homeBidButton = new JButton("Bid on Selected Item");
@@ -222,6 +225,27 @@ public class Home extends JPanel
 				int type = homeFilterCombo.getSelectedIndex();
 				String criteria = homeFilterText.getText();
 				items = Page.Auction.statistics.filter(type, criteria);
+				
+				String[] StringOfItems = new String[items.size()];
+				for (int i = 0; i < items.size(); i++) {
+					StringOfItems[i] = i + ": " + items.get(i).getName() + " " + items.get(i).statistics.getHighest().getAmount();
+					itemField.setText(StringOfItems[i]);
+				}
+				
+				homeItemsList = new JList<String>(StringOfItems);
+
+				homeItemsList.setModel(new AbstractListModel()
+				{
+					String[] values = StringOfItems;
+					public int getSize()
+					{
+						return values.length;
+					}
+					public Object getElementAt(int index)
+					{
+						return values[index];
+					}
+				});
 			}
 		});
 		
