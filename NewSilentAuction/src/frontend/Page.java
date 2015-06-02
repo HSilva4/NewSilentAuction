@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JMenuItem;
 
-import backend.Item;
+import backend.*;
 
 /**
  * This class is the main frame for our silent auction software for TCSS 360.
@@ -53,6 +53,8 @@ public class Page extends JFrame
 	public static JPanel generalStatsPanel;
 	public static JPanel QRPanel;
 	public static JPanel specificStatsPanel;
+	
+	public static Auction Auction = new Auction(102394820);
 	
 	
 	
@@ -149,7 +151,7 @@ public class Page extends JFrame
 		contentPane.add(specificStatsPanel);
 		
 		//item panel
-		Item item = new Item("Conner", "is awesome", 200.00, null);
+		Item item = new Item("Conner", "is awesome", 200.00, new backend.Donor("Conner", "123", "123"));
 		itemPanel = new ItemPage(item);
 //		itemPanel = new ItemPage();
 		contentPane.add(itemPanel);

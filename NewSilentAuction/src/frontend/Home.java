@@ -16,9 +16,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+import backend.Auction;
+import backend.Auction.Stats;
 import backend.Bid;
 import backend.Item;
 //import backend.User;
+
+
 
 
 import java.awt.event.ActionListener;
@@ -40,7 +44,8 @@ public class Home extends JPanel
 	//Text field that holds the filter box.
 	private JTextField homeFilterText;
 	
-	private ArrayList<Item> items = new ArrayList<Item>();//TODO: delete after getting offical list
+	private ArrayList<Item> items = Page.Auction.statistics.filter(0, null);//TODO: delete after getting offical list
+//	private ArrayList<String> itemNames;
 	
 //Constructor
 	
@@ -151,20 +156,20 @@ public class Home extends JPanel
 		JLabel homeItemstoBidLabel = new JLabel("Items to Bid On");
 		homeScrolPane.setColumnHeaderView(homeItemstoBidLabel);
 		
-		/****************************************************************************************************************************/
-		
-		
-		items.add(new Item("Tabel", "a nice kitchen tabel", 50.00, null));
-		items.add(new Item("Chair", "a nice kitchen chair", 30.00, null));
-		items.add(new Item("Whale Watching Experience", "a wonderful trip to the beautiful islands of washington", 250.00, null));
-		items.add(new Item("Diablo 3", "a 4 foot rubber and lubricated dildo", 100.00, null));
-		items.add(new Item("Computer mouse", "", 20.00, null));
-		for(Item i: items)
-		{
-			i.addBid(new Bid(260.00, 696969));
-		}
-		
-		/****************************************************************************************************************************/
+//		/****************************************************************************************************************************/
+//		
+//		
+//		items.add(new Item("Tabel", "a nice kitchen tabel", 50.00, null));
+//		items.add(new Item("Chair", "a nice kitchen chair", 30.00, null));
+//		items.add(new Item("Whale Watching Experience", "a wonderful trip to the beautiful islands of washington", 250.00, null));
+//		items.add(new Item("Diablo 3", "a 4 foot rubber and lubricated dildo", 100.00, null));
+//		items.add(new Item("Computer mouse", "", 20.00, null));
+//		for(Item i: items)
+//		{
+//			i.addBid(new Bid(696969, 260.00));
+//		}
+//		
+//		/****************************************************************************************************************************/
 		
 		//items list
 		JTextField itemField = new JTextField();
@@ -179,7 +184,7 @@ public class Home extends JPanel
 //		ArrayList<Items> items = Auction.getlistofitems or whatever
 		String[] StringOfItems = new String[items.size()];
 		for (int i = 0; i < items.size(); i++) {
-			StringOfItems[i] = i + ": " + items.get(i).getName() + " " + items.get(i).statistics.getHighestBidAmt().getAmount();
+			StringOfItems[i] = i + ": " + items.get(i).getName() + " " + items.get(i).statistics.getHighest().getAmount();
 			itemField.setText(StringOfItems[i]);
 		}
 		JList<String> homeItemsList = new JList<String>(StringOfItems);
@@ -214,26 +219,29 @@ public class Home extends JPanel
 		//the home filter button
 		homeFilterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String filterBy = (String) homeFilterCombo.getSelectedItem();
-				String title = homeFilterText.getText();
-				
-				//TODO: use filterby and title to call filterItems in auction, to change the jlist.
+				int type = homeFilterCombo.getSelectedIndex();
+				String criteria = homeFilterText.getText();
+				items = Page.Auction.statistics.filter(type, criteria);
 			}
 		});
 		
 		//the home bid button listener
 		homeBidButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int index = homeItemsList.getSelectedIndex();
-//				Item item = new Item("Hannah", "is lame", 300.00, null);
-				//create new item panel
-				Page.itemPanel = new ItemPage(items.get(index));
-				Page.contentPane.add(Page.itemPanel);//Page.itemPanel
-				Page.homePanel.setVisible(false);
-//				homeItemsList.
-				Page.itemPanel.setVisible(true);
-//				contentPane.add(itemPanel);
+				if (homeItemsList.getSelectedIndex() != -1) {
+					int index = homeItemsList.getSelectedIndex();
+					//				Item item = new Item("Hannah", "is lame", 300.00, null);
+					//create new item panel
+					Page.itemPanel = new ItemPage(items.get(index));
+					Page.contentPane.add(Page.itemPanel);//Page.itemPanel
+					Page.homePanel.setVisible(false);
+					//				homeItemsList.
+					Page.itemPanel.setVisible(true);
+					//				contentPane.add(itemPanel);
+				}
 			}
 		});
 	}
+	
+	
 }

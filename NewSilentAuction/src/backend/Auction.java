@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 public class Auction
 {
-  private Stats statistics;
+  public Stats statistics;
   public final long auctionStart;
   public final long auctionDuration;
   public Map<Integer, Cash> cashDonations;
@@ -23,6 +23,7 @@ public class Auction
     this.auctionDuration = auctionDuration;
     this.cashDonations = new HashMap<Integer, Cash>();
     this.items = new HashMap<Integer, Item>();
+    
     this.users = new HashMap<Integer, User>();
     this.statistics = new Stats();
   }
@@ -75,7 +76,7 @@ public class Auction
 
     
     @SuppressWarnings("unchecked")
-    public ArrayList<String> filter(int type, Object criteria)
+    public ArrayList<Item> filter(int type, Object criteria)
     {
       Comparator<Entry<Integer, Item>>[] comparators = 
           (Comparator<Entry<Integer, Item>>[]) new Comparator[5];
@@ -128,10 +129,10 @@ public class Auction
       };
       
       entries.sort(comparators[type]);
-      ArrayList<String> out = new ArrayList<String>(entries.size());
+      ArrayList<Item> out = new ArrayList<Item>(entries.size());
       for(int i = 0; i < out.size(); i++)
       {
-        out.add(entries.get(i).getValue().toString());
+        out.add(entries.get(i).getValue());
       }
       
       return out;

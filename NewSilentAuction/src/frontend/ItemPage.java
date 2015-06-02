@@ -476,7 +476,7 @@ public class ItemPage extends JPanel
 					else {
 						double bidAmount = Double.parseDouble(itemNewBidField.getText());
 						int bidderID = Integer.parseInt(itemBidderIDText.getText());
-						Bid bid = new Bid(bidAmount, bidderID);
+						Bid bid = new Bid(bidderID, bidAmount);
 						currentItem.addBid(bid);
 
 						JOptionPane.showMessageDialog(null, "Thank you for placing your bid value of: $" + bidAmount);

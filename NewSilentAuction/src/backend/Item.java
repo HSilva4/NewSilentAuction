@@ -56,7 +56,7 @@ public class Item extends Contribution
   {
     this("[un-named item #" + counter++ + "]", "blabla", 1.0, null);
   }
-  public Item(String name, String description, double appraisal, User donor)
+  public Item(String name, String description, double appraisal, Donor donor)
   {
     super(donor.ID, appraisal);
     this.bids = new LinkedList<Bid>();

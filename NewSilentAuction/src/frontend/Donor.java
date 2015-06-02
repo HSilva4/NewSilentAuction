@@ -244,7 +244,7 @@ public class Donor extends JPanel
 				String companyName = donateCompanyField.getText();
 				String itemName = donateItemField.getText();
 				double bid;
-				if (phoneNumber.length() != 10 || !phoneNumber.matches("[0-9]+")) {
+				if (phoneNumber.length() != 10 || !phoneNumber.matches("[0-9]{10}")) {
 					JOptionPane.showMessageDialog(null, "Please enter a valid phone number");
 				}
 				else {
