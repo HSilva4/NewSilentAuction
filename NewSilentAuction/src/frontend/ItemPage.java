@@ -483,7 +483,11 @@ public class ItemPage extends JPanel
 						if (!Page.Auction.users.containsKey(bidderID)) {
 							JOptionPane.showMessageDialog(null, "This ID is not currently registered. To register, "
 									+ "please visit the registration page.");
-						} else {
+						} else if (currentItem.getCurrentBid() >= bidAmount) {
+							JOptionPane.showMessageDialog(null, "You must enter in a bid that is greater than the "
+									+ "current bid.");
+						}
+						else {
 							Bid bid = new Bid(bidderID, bidAmount);
 							currentItem.addBid(bid);
 

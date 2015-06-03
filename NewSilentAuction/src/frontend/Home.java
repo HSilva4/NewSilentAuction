@@ -53,8 +53,7 @@ public class Home extends JPanel
 	//Text field that holds the filter box.
 	private JTextField homeFilterText;
 	
-	private ArrayList<Item> items;// = Page.Auction.statistics.filter(0, null);
-//	private ArrayList<String> itemNames;
+	private ArrayList<Item> items;
 	
 	private JList<String> homeItemsList;
 	private JScrollPane homeScrollPane;
@@ -273,16 +272,16 @@ public class Home extends JPanel
 				homeBidButton.setEnabled(false);
 				Page.homePanel.setVisible(false);
 				Page.itemPanel.setVisible(true);
-				
+
 			}
 		});
-		
-		  homeItemsList.addListSelectionListener(new ListSelectionListener() {
-			     public void valueChanged(ListSelectionEvent e) {
-			           homeBidButton.setEnabled(true);
-			 }
-			});
+
+		homeItemsList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				homeBidButton.setEnabled(true);
+			}
+		});
 	}
-	
-	
+
+
 }

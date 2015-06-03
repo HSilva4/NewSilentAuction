@@ -146,14 +146,15 @@ public class Page extends JFrame
 		QRPanel = new JPanel();
 		contentPane.add(QRPanel);
 		
+		//fake item to use in initialization of item panel and specific stats panel
+		Item item = new Item("Conner", "is awesome", 200.00, new backend.Donor("Conner", "123", "123"));
+		
 		//specific stats panel
-		specificStatsPanel = new SpecificStats();
+		specificStatsPanel = new SpecificStats(item);
 		contentPane.add(specificStatsPanel);
 		
 		//item panel
-		Item item = new Item("Conner", "is awesome", 200.00, new backend.Donor("Conner", "123", "123"));
 		itemPanel = new ItemPage(item);
-//		itemPanel = new ItemPage();
 		contentPane.add(itemPanel);
 	/** End 'pages' */
 		

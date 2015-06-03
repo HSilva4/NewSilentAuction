@@ -1,6 +1,7 @@
 package backend;
 
 import java.util.EventListener;
+import java.util.Random;
 
 abstract class User implements EventListener
 {
@@ -13,7 +14,7 @@ abstract class User implements EventListener
   public User(final String name, final String email, final String phone)
   {
     this.name = name;
-    this.ID = hashCode();
+    this.ID = generateID();
     this.email = email;
     this.phone = phone;
     //comment
@@ -28,6 +29,15 @@ abstract class User implements EventListener
   public int hashCode()
   {
     return this.name.hashCode();
+  }
+  
+  public int generateID()
+  {
+	  Random rand = new Random();
+	  return rand.nextInt(8999) + 1000;
+	  
+	  //TODO: validate that this ID hasn't been given to someone
+	  
   }
  
   

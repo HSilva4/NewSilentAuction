@@ -10,6 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import backend.Item;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 /**
  * This class creates the specific stats 'page' that shows stats for one single item.
  * 
@@ -25,17 +29,18 @@ public class SpecificStats extends JPanel
 	//Text fields that hold all of our info.
 	private JTextField specItemNameText;
 	private JTextField specCurrentBidText;
-	private JTextField specDonorField;
+	private JTextField specNumberBidsText;
 	private JTextField specStartingBidText;
 	
+	private Item currentItem;
 //Constructor
 	
 	/**
 	 * Creates the specific stats page.
 	 */
-	public SpecificStats()
+	public SpecificStats(Item item)
 	{
-		
+		currentItem = item;
 		//Set the layout to border layout.
 		setLayout(new BorderLayout(0, 0));
 		
@@ -69,6 +74,7 @@ public class SpecificStats extends JPanel
 		gbc_specItemNameText.gridy = 0;
 		innerSpecPanel.add(specItemNameText, gbc_specItemNameText);
 		specItemNameText.setColumns(10);
+		specItemNameText.setText(currentItem.getName());
 		
 		//a space
 		JLabel space__1 = new JLabel(" ");
@@ -97,6 +103,7 @@ public class SpecificStats extends JPanel
 		gbc_spaceCurrentBidText.gridy = 2;
 		innerSpecPanel.add(specCurrentBidText, gbc_spaceCurrentBidText);
 		specCurrentBidText.setColumns(10);
+		specCurrentBidText.setText("" + currentItem.getCurrentBid());
 		
 		//a space
 		JLabel space__2 = new JLabel(" ");
@@ -107,24 +114,26 @@ public class SpecificStats extends JPanel
 		innerSpecPanel.add(space__2, gbc_space__2);
 		
 		//donor label
-		JLabel specDonorLabel = new JLabel("Total Number of bids:");
-		GridBagConstraints gbc_specDonorLabel = new GridBagConstraints();
-		gbc_specDonorLabel.anchor = GridBagConstraints.WEST;
-		gbc_specDonorLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_specDonorLabel.gridx = 0;
-		gbc_specDonorLabel.gridy = 4;
-		innerSpecPanel.add(specDonorLabel, gbc_specDonorLabel);
+		JLabel specNumberBidsLabel = new JLabel("Total Number of bids:");
+		GridBagConstraints gbc_specNumberBidsLabel = new GridBagConstraints();
+		gbc_specNumberBidsLabel.anchor = GridBagConstraints.WEST;
+		gbc_specNumberBidsLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_specNumberBidsLabel.gridx = 0;
+		gbc_specNumberBidsLabel.gridy = 4;
+		innerSpecPanel.add(specNumberBidsLabel, gbc_specNumberBidsLabel);
 		
 		//donor text
-		specDonorField = new JTextField();
-		specDonorField.setEditable(false);
-		GridBagConstraints gbc_specDonorField = new GridBagConstraints();
-		gbc_specDonorField.insets = new Insets(0, 0, 5, 5);
-		gbc_specDonorField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_specDonorField.gridx = 1;
-		gbc_specDonorField.gridy = 4;
-		innerSpecPanel.add(specDonorField, gbc_specDonorField);
-		specDonorField.setColumns(10);
+		specNumberBidsText = new JTextField();
+		specNumberBidsText.setEditable(false);
+		GridBagConstraints gbc_specNumberBidsText = new GridBagConstraints();
+		gbc_specNumberBidsText.insets = new Insets(0, 0, 5, 5);
+		gbc_specNumberBidsText.fill = GridBagConstraints.HORIZONTAL;
+		gbc_specNumberBidsText.gridx = 1;
+		gbc_specNumberBidsText.gridy = 4;
+		innerSpecPanel.add(specNumberBidsText, gbc_specNumberBidsText);
+		specNumberBidsText.setColumns(10);
+		specNumberBidsText.setText("" + currentItem.statistics.getBidCount());
+		
 		
 		//a space
 		JLabel space__3 = new JLabel(" ");
@@ -153,6 +162,7 @@ public class SpecificStats extends JPanel
 		gbc_specStartingBidText.gridy = 6;
 		innerSpecPanel.add(specStartingBidText, gbc_specStartingBidText);
 		specStartingBidText.setColumns(10);
+		specStartingBidText.setText("" + currentItem.getAppraisal());
 		
 		//a space
 		JLabel space__4 = new JLabel(" ");
@@ -164,6 +174,7 @@ public class SpecificStats extends JPanel
 		
 		//back button
 		JButton specBackButton = new JButton("Back");
+
 		GridBagConstraints gbc_specBackButton = new GridBagConstraints();
 		gbc_specBackButton.anchor = GridBagConstraints.WEST;
 		gbc_specBackButton.insets = new Insets(0, 0, 0, 5);
@@ -171,5 +182,16 @@ public class SpecificStats extends JPanel
 		gbc_specBackButton.gridy = 8;
 		innerSpecPanel.add(specBackButton, gbc_specBackButton);
 	/** End fields */
+		
+	/** Start listeners */
+		specBackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Page.specificStatsPanel.setVisible(false);
+				
+				Page.generalStatsPanel = new GeneralStats();
+				Page.contentPane.add(Page.generalStatsPanel);
+				Page.generalStatsPanel.setVisible(true);
+			}
+		});
 	}
 }
