@@ -44,7 +44,7 @@ public class Auction
 
   public int addItem(String name, String description, double appraisal, Integer donorId)
   {
-    Item item = new Item(name, description, appraisal, users.get(donorId));
+    Item item = new Item(name, description, appraisal, (Donor) users.get(donorId));
     this.items.put(item.ID, item);
     return item.ID;
   }
