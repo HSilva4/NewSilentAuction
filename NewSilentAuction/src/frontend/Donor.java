@@ -265,11 +265,11 @@ public class Donor extends JPanel
 					Page.Auction.addItem(itemName, itemDescription, startingBid, donorID);
 					
 					JOptionPane.showMessageDialog(null, "Thank you, " + name + ", for donating your item: " + itemName + ".");
-//					donateNameField.setText(null);
-//					donateEmailField.setText(null);
-//					donatePhoneField.setText(null);
-//					donateItemField.setText(null);
-//					donateDescriptionField.setText(null);
+					donateNameField.setText(null);
+					donateEmailField.setText(null);
+					donatePhoneField.setText(null);
+					donateItemField.setText(null);
+					donateDescriptionField.setText(null);
 					
 					Page.Auction.writeItem(itemName, itemDescription, startingBid, donorID);
 					

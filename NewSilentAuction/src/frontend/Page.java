@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -164,12 +163,7 @@ public class Page extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				donatePanel.setVisible(false);
-				generalStatsPanel.setVisible(false);
-				registrationPanel.setVisible(false);
-				QRPanel.setVisible(false);
-				specificStatsPanel.setVisible(false);
-				itemPanel.setVisible(false);
+				setAllVisible(false);
 				
 				homePanel = new Home();
 				contentPane.add(homePanel);
@@ -182,12 +176,7 @@ public class Page extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				homePanel.setVisible(false);
-				donatePanel.setVisible(false);
-				generalStatsPanel.setVisible(false);
-				QRPanel.setVisible(false);
-				specificStatsPanel.setVisible(false);
-				itemPanel.setVisible(false);
+				setAllVisible(false);
 				
 				registrationPanel = new Registration();
 				contentPane.add(registrationPanel);
@@ -201,12 +190,7 @@ public class Page extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				homePanel.setVisible(false);
-				generalStatsPanel.setVisible(false);
-				registrationPanel.setVisible(false);
-				QRPanel.setVisible(false);
-				specificStatsPanel.setVisible(false);
-				itemPanel.setVisible(false);
+				setAllVisible(false);
 				
 				donatePanel = new Donor();
 				contentPane.add(donatePanel);
@@ -219,12 +203,7 @@ public class Page extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				homePanel.setVisible(false);
-				donatePanel.setVisible(false);
-				registrationPanel.setVisible(false);
-				QRPanel.setVisible(false);
-				specificStatsPanel.setVisible(false);
-				itemPanel.setVisible(false);
+				setAllVisible(false);
 				
 				generalStatsPanel = new GeneralStats();
 				contentPane.add(generalStatsPanel);
@@ -278,4 +257,15 @@ public class Page extends JFrame
 		ImageIcon img = new ImageIcon("assets/logo.png");
 		setIconImage(img.getImage());
 	}	
+	
+	private void setAllVisible(boolean bool) {
+		homePanel.setVisible(bool);
+		donatePanel.setVisible(bool);
+		registrationPanel.setVisible(bool);
+		QRPanel.setVisible(bool);
+		specificStatsPanel.setVisible(bool);
+		itemPanel.setVisible(bool);
+		generalStatsPanel.setVisible(bool);
+		
+	}
 }

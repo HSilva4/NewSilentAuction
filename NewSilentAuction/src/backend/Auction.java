@@ -32,6 +32,7 @@ public class Auction
     this.users = new HashMap<Integer, User>();
     this.statistics = new Stats();
     initializeItems();
+    initializeUsers();
   }
   
   public int addBidder(String name, String email, String phone)
@@ -83,6 +84,28 @@ public class Auction
 	  
   }
   
+  private void initializeUsers() {
+	  try {
+		  File file = new File("assets/Bidders.txt");
+		  
+		  FileReader fr = new FileReader(file.getAbsolutePath());
+		  BufferedReader br = new BufferedReader(fr);
+		  String str = br.readLine();
+		  while (str != null) {
+			  String[] ar = str.split("\\*");
+			  int ID = Integer.parseInt(ar[3]);
+			  Bidder bidder = new Bidder(ar[0], ar[1], ar[2], ID);
+			  this.users.put(bidder.ID, bidder);
+			  
+			  str = br.readLine();
+		  }
+		  br.close();
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  }
+	  
+  }
+  
   public void writeItem(String name, String description, double appraisal, Integer donorID) {
 	  try {
 		  File file = new File("assets/Items.txt");
@@ -93,6 +116,23 @@ public class Auction
 		  Donor donor = (Donor) users.get(donorID);
 		  
 		  bw.write("\r\n" + name + "*" + description + "*" + appraisal + "*" + donor.name + "*" + donor.email + "*" + donor.phone);
+		  bw.close();
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  }
+	  
+  }
+  
+  public void writeBidder(String name, String email, String phone, Integer ID) {
+	  try {
+		  File file = new File("assets/Bidders.txt");
+		  
+		  FileWriter fw = new FileWriter(file.getAbsolutePath(), true);
+		  BufferedWriter bw = new BufferedWriter(fw);
+		  
+		  Bidder bidder = (Bidder) users.get(ID);
+		  
+		  bw.write("\r\n" + name + "*" + email + "*" + phone + "*" + bidder.ID);
 		  bw.close();
 	  } catch (IOException e) {
 		  e.printStackTrace();
@@ -119,7 +159,7 @@ public class Auction
 
     
     @SuppressWarnings("unchecked")
-    public ArrayList<Item> filter(int type, Object criteria)
+    public ArrayList<Item> filter(int type, String criteria)
     {
       Comparator<Entry<Integer, Item>>[] comparators = 
           (Comparator<Entry<Integer, Item>>[]) new Comparator[5];
@@ -141,7 +181,7 @@ public class Auction
       };
       comparators[CURRENT_BID] = (Entry<Integer, Item> e1, Entry<Integer, Item> e2)->
       {
-        double target = criteria == null ? Double.MAX_VALUE : (double) criteria;
+        double target = criteria == null ? Double.MAX_VALUE : Double.parseDouble(criteria);
         int o1 = (int) Math.abs(
             e1.getValue().statistics.getHighest().getAmount() - target);
 
@@ -151,7 +191,7 @@ public class Auction
       };
       comparators[BID_COUNT] = (Entry<Integer, Item> e1, Entry<Integer, Item> e2)->
       {
-        double target = criteria == null ? Double.MAX_VALUE : (double) criteria;
+        double target = criteria == null ? Double.MAX_VALUE : Double.parseDouble(criteria);
         int o1 = (int) Math.abs(e1.getValue().statistics.getBidCount() - target);
         int o2 = (int) Math.abs(e2.getValue().statistics.getBidCount() - target);
         return -1 * (o1 - o2);
@@ -164,7 +204,7 @@ public class Auction
       };
       comparators[APPRAISAL] = (Entry<Integer, Item> e1, Entry<Integer, Item> e2)->
       {
-        double target = criteria == null ? Double.MAX_VALUE : (double) criteria;
+        double target = criteria == null ? Double.MAX_VALUE : Double.parseDouble(criteria);
         int o1 = (int) Math.abs(e1.getValue().getAppraisal() - target);
 
         int o2 = (int) Math.abs(e2.getValue().getAppraisal() - target);

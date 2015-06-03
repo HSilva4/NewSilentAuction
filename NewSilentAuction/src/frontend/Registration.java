@@ -170,7 +170,7 @@ public class Registration extends JPanel
 				else {
 					
 					int bidderID = Page.Auction.addBidder(name, email, phoneNumber);
-					
+					Page.Auction.writeBidder(name, email, phoneNumber, bidderID);
 					
 					JOptionPane.showMessageDialog(null, "Thank you for registering, " + name
 							+ ". Your ID is: " + bidderID + ". Please remember your ID, for use"

@@ -19,6 +19,12 @@ abstract class User implements EventListener
     this.phone = phone;
     //comment
   }
+  public User(final String name, final String email, final String phone, final int ID) {
+	    this.name = name;
+	    this.ID = ID;
+	    this.email = email;
+	    this.phone = phone;
+  }
   
   public int getId()
   {

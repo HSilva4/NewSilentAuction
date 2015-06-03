@@ -55,7 +55,7 @@ public class Home extends JPanel
 	
 	private ArrayList<Item> items;
 	
-	private JList<String> homeItemsList;
+	private static JList<String> homeItemsList;
 	private JScrollPane homeScrollPane;
 	
 //Constructor
@@ -231,13 +231,16 @@ public class Home extends JPanel
 		//the home filter button
 		homeFilterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				homeBidButton.setEnabled(false);
 				int type = homeFilterCombo.getSelectedIndex();
 				String criteria = homeFilterText.getText();
 				items = Page.Auction.statistics.filter(type, criteria);
+				for (Item item : items) {
+					System.out.println(item.getName());
+				}
 				String[] StringOfItems = new String[items.size()];
 				for (int i = 0; i < items.size(); i++) {
 					StringOfItems[i] = i + ": " + items.get(i).getName() + " " + items.get(i).getCurrentBid();
-//					itemField.setText(StringOfItems[i]);
 				}
 				
 				homeItemsList = new JList<String>(StringOfItems);
@@ -257,6 +260,13 @@ public class Home extends JPanel
 				
 				homeItemsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	//allows only a single item to be selected
 				homeScrollPane.setViewportView(homeItemsList);
+				
+				homeItemsList.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						homeBidButton.setEnabled(true);
+					}
+				});
+				
 			}
 		});
 		
@@ -276,6 +286,7 @@ public class Home extends JPanel
 			}
 		});
 
+		
 		homeItemsList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				homeBidButton.setEnabled(true);
