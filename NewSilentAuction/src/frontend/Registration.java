@@ -168,9 +168,19 @@ public class Registration extends JPanel
 					JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Thank you for registering, " + name);
+					
+					int bidderID = Page.Auction.addBidder(name, email, phoneNumber);
+					
+					
+					JOptionPane.showMessageDialog(null, "Thank you for registering, " + name
+							+ ". Your ID is: " + bidderID + ". Please remember your ID, for use"
+							+ " in bidding.");
 					Page.registrationPanel.setVisible(false);
+					
+					Page.homePanel = new Home();
+					Page.contentPane.add(Page.homePanel);
 					Page.homePanel.setVisible(true);
+					
 				}
 					
 				

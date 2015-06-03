@@ -170,6 +170,8 @@ public class Page extends JFrame
 				specificStatsPanel.setVisible(false);
 				itemPanel.setVisible(false);
 				
+				homePanel = new Home();
+				contentPane.add(homePanel);
 				homePanel.setVisible(true);
 			}
 		});
@@ -186,6 +188,8 @@ public class Page extends JFrame
 				specificStatsPanel.setVisible(false);
 				itemPanel.setVisible(false);
 				
+				registrationPanel = new Registration();
+				contentPane.add(registrationPanel);
 				registrationPanel.setVisible(true);
 				
 			}
@@ -203,6 +207,8 @@ public class Page extends JFrame
 				specificStatsPanel.setVisible(false);
 				itemPanel.setVisible(false);
 				
+				donatePanel = new Donor();
+				contentPane.add(donatePanel);
 				donatePanel.setVisible(true);
 			}
 		});
@@ -219,6 +225,8 @@ public class Page extends JFrame
 				specificStatsPanel.setVisible(false);
 				itemPanel.setVisible(false);
 				
+				generalStatsPanel = new GeneralStats();
+				contentPane.add(generalStatsPanel);
 				generalStatsPanel.setVisible(true);
 			}
 		});

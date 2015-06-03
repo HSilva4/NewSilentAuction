@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import backend.Auction;
 import backend.Auction.Stats;
@@ -25,9 +27,16 @@ import backend.Item;
 
 
 
+
+
+
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class creates the home 'page' which will hold all of the items that are able to be bid on.
@@ -44,7 +53,7 @@ public class Home extends JPanel
 	//Text field that holds the filter box.
 	private JTextField homeFilterText;
 	
-	private ArrayList<Item> items = Page.Auction.statistics.filter(0, null);//TODO: delete after getting offical list
+	private ArrayList<Item> items;// = Page.Auction.statistics.filter(0, null);
 //	private ArrayList<String> itemNames;
 	
 	private JList<String> homeItemsList;
@@ -58,7 +67,7 @@ public class Home extends JPanel
 	@SuppressWarnings({ "rawtypes", "unchecked", "serial" })
 	public Home()
 	{
-		
+		items = Page.Auction.statistics.filter(0, null);
 		//Make the layout border layout.
 		setLayout(new BorderLayout(0, 0));
 		
@@ -175,7 +184,7 @@ public class Home extends JPanel
 //		/****************************************************************************************************************************/
 		
 		//items list
-		JTextField itemField = new JTextField();
+//		JTextField itemField = new JTextField();
 //		JList<String> homeItemsList = new JList<String>();
 //		String[] items = new String[20]; //20 is the number of items
 //		for (int i = 0; i < 20; i++)
@@ -187,8 +196,8 @@ public class Home extends JPanel
 //		ArrayList<Items> items = Auction.getlistofitems or whatever
 		String[] StringOfItems = new String[items.size()];
 		for (int i = 0; i < items.size(); i++) {
-			StringOfItems[i] = i + ": " + items.get(i).getName() + " " + items.get(i).statistics.getHighest().getAmount();
-			itemField.setText(StringOfItems[i]);
+			StringOfItems[i] = i + ": " + items.get(i).getName() + " $" + items.get(i).getCurrentBid();
+//			itemField.setText(StringOfItems[i]);
 		}
 		homeItemsList = new JList<String>(StringOfItems);
 
@@ -215,6 +224,7 @@ public class Home extends JPanel
 		gbc_homeBidButton.anchor = GridBagConstraints.EAST;
 		gbc_homeBidButton.gridx = 1;
 		gbc_homeBidButton.gridy = 7;
+		homeBidButton.setEnabled(false);
 		innerHomePanel.add(homeBidButton, gbc_homeBidButton);
 	/** End fields */
 		
@@ -225,11 +235,10 @@ public class Home extends JPanel
 				int type = homeFilterCombo.getSelectedIndex();
 				String criteria = homeFilterText.getText();
 				items = Page.Auction.statistics.filter(type, criteria);
-				
 				String[] StringOfItems = new String[items.size()];
 				for (int i = 0; i < items.size(); i++) {
-					StringOfItems[i] = i + ": " + items.get(i).getName() + " " + items.get(i).statistics.getHighest().getAmount();
-					itemField.setText(StringOfItems[i]);
+					StringOfItems[i] = i + ": " + items.get(i).getName() + " " + items.get(i).getCurrentBid();
+//					itemField.setText(StringOfItems[i]);
 				}
 				
 				homeItemsList = new JList<String>(StringOfItems);
@@ -246,25 +255,33 @@ public class Home extends JPanel
 						return values[index];
 					}
 				});
+				
+				homeItemsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	//allows only a single item to be selected
+				homeScrollPane.setViewportView(homeItemsList);
 			}
 		});
+		
 		
 		//the home bid button listener
 		homeBidButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (homeItemsList.getSelectedIndex() != -1) {
-					int index = homeItemsList.getSelectedIndex();
-					//				Item item = new Item("Hannah", "is lame", 300.00, null);
-					//create new item panel
-					Page.itemPanel = new ItemPage(items.get(index));
-					Page.contentPane.add(Page.itemPanel);//Page.itemPanel
-					Page.homePanel.setVisible(false);
-					//				homeItemsList.
-					Page.itemPanel.setVisible(true);
-					//				contentPane.add(itemPanel);
-				}
+				int index = homeItemsList.getSelectedIndex();
+				//create new item panel
+				Page.itemPanel = new ItemPage(items.get(index));
+				Page.contentPane.add(Page.itemPanel);
+				homeItemsList.clearSelection();
+				homeBidButton.setEnabled(false);
+				Page.homePanel.setVisible(false);
+				Page.itemPanel.setVisible(true);
+				
 			}
 		});
+		
+		  homeItemsList.addListSelectionListener(new ListSelectionListener() {
+			     public void valueChanged(ListSelectionEvent e) {
+			           homeBidButton.setEnabled(true);
+			 }
+			});
 	}
 	
 	

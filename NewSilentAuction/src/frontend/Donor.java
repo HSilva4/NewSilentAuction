@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -31,9 +32,9 @@ public class Donor extends JPanel
 	private JTextField donateNameField;
 	private JTextField donateEmailField;
 	private JTextField donatePhoneField;
-	private JTextField donateCompanyField;
 	private JTextField donateItemField;
 	private JTextField donateBidField;
+	private JTextField donateDescriptionField;
 	
 //Constructor
 	
@@ -51,9 +52,9 @@ public class Donor extends JPanel
 		add(innerDonPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_innerDonPanel = new GridBagLayout();
 		gbl_innerDonPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_innerDonPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_innerDonPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_innerDonPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_innerDonPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_innerDonPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		innerDonPanel.setLayout(gbl_innerDonPanel);
 		
 	/** Start fields */
@@ -112,40 +113,13 @@ public class Donor extends JPanel
 		gbc_space2.gridy = 3;
 		innerDonPanel.add(space2, gbc_space2);
 		
-		//company label
-		JLabel donateCompanyLabel = new JLabel("Enter your company:");
-		GridBagConstraints gbc_donateCompanyLabel = new GridBagConstraints();
-		gbc_donateCompanyLabel.anchor = GridBagConstraints.WEST;
-		gbc_donateCompanyLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_donateCompanyLabel.gridx = 3;
-		gbc_donateCompanyLabel.gridy = 4;
-		innerDonPanel.add(donateCompanyLabel, gbc_donateCompanyLabel);
-		
-		//company text box
-		donateCompanyField = new JTextField();
-		GridBagConstraints gbc_donateCompanyField = new GridBagConstraints();
-		gbc_donateCompanyField.insets = new Insets(0, 0, 5, 0);
-		gbc_donateCompanyField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_donateCompanyField.gridx = 5;
-		gbc_donateCompanyField.gridy = 4;
-		innerDonPanel.add(donateCompanyField, gbc_donateCompanyField);
-		donateCompanyField.setColumns(10);
-		
-		//a space
-		JLabel space3 = new JLabel(" ");
-		GridBagConstraints gbc_space3 = new GridBagConstraints();
-		gbc_space3.insets = new Insets(0, 0, 5, 0);
-		gbc_space3.gridx = 5;
-		gbc_space3.gridy = 5;
-		innerDonPanel.add(space3, gbc_space3);
-		
 		//phone number label
 		JLabel donateNumberLabel = new JLabel("Enter your phone number:");
 		GridBagConstraints gbc_donateNumberLabel = new GridBagConstraints();
 		gbc_donateNumberLabel.anchor = GridBagConstraints.WEST;
 		gbc_donateNumberLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_donateNumberLabel.gridx = 3;
-		gbc_donateNumberLabel.gridy = 6;
+		gbc_donateNumberLabel.gridy = 4;
 		innerDonPanel.add(donateNumberLabel, gbc_donateNumberLabel);
 		
 		//phone number text box
@@ -155,8 +129,39 @@ public class Donor extends JPanel
 		gbc_donatePhoneField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_donatePhoneField.insets = new Insets(0, 0, 5, 0);
 		gbc_donatePhoneField.gridx = 5;
-		gbc_donatePhoneField.gridy = 6;
+		gbc_donatePhoneField.gridy = 4;
 		innerDonPanel.add(donatePhoneField, gbc_donatePhoneField);
+		
+
+		
+		//a space
+		JLabel space3 = new JLabel(" ");
+		GridBagConstraints gbc_space3 = new GridBagConstraints();
+		gbc_space3.insets = new Insets(0, 0, 5, 0);
+		gbc_space3.gridx = 5;
+		gbc_space3.gridy = 5;
+		innerDonPanel.add(space3, gbc_space3);
+		
+		//item label
+		JLabel donateItemLabel = new JLabel("Enter your item name:");
+		GridBagConstraints gbc_donateItemLabel = new GridBagConstraints();
+		gbc_donateItemLabel.anchor = GridBagConstraints.WEST;
+		gbc_donateItemLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_donateItemLabel.gridx = 3;
+		gbc_donateItemLabel.gridy = 6;
+		innerDonPanel.add(donateItemLabel, gbc_donateItemLabel);
+		
+		//item text box
+		donateItemField = new JTextField();
+		GridBagConstraints gbc_donateItemField = new GridBagConstraints();
+		gbc_donateItemField.insets = new Insets(0, 0, 5, 0);
+		gbc_donateItemField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_donateItemField.gridx = 5;
+		gbc_donateItemField.gridy = 6;
+		innerDonPanel.add(donateItemField, gbc_donateItemField);
+		donateItemField.setColumns(10);
+		
+
 		
 		//a space
 		JLabel space4 = new JLabel(" ");
@@ -166,24 +171,21 @@ public class Donor extends JPanel
 		gbc_space4.gridy = 7;
 		innerDonPanel.add(space4, gbc_space4);
 		
-		//item label
-		JLabel donateItemLabel = new JLabel("Enter your item name:");
-		GridBagConstraints gbc_donateItemLabel = new GridBagConstraints();
-		gbc_donateItemLabel.anchor = GridBagConstraints.WEST;
-		gbc_donateItemLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_donateItemLabel.gridx = 3;
-		gbc_donateItemLabel.gridy = 8;
-		innerDonPanel.add(donateItemLabel, gbc_donateItemLabel);
+		JLabel donateDescriptionLabel = new JLabel("Enter your item description:");
+		GridBagConstraints gbc_donateDescriptionLabel = new GridBagConstraints();
+		gbc_donateDescriptionLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_donateDescriptionLabel.gridx = 3;
+		gbc_donateDescriptionLabel.gridy = 8;
+		innerDonPanel.add(donateDescriptionLabel, gbc_donateDescriptionLabel);
 		
-		//item text box
-		donateItemField = new JTextField();
-		GridBagConstraints gbc_donateItemField = new GridBagConstraints();
-		gbc_donateItemField.insets = new Insets(0, 0, 5, 0);
-		gbc_donateItemField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_donateItemField.gridx = 5;
-		gbc_donateItemField.gridy = 8;
-		innerDonPanel.add(donateItemField, gbc_donateItemField);
-		donateItemField.setColumns(10);
+		donateDescriptionField = new JTextField();
+		GridBagConstraints gbc_donateDescriptionField = new GridBagConstraints();
+		gbc_donateDescriptionField.insets = new Insets(0, 0, 5, 0);
+		gbc_donateDescriptionField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_donateDescriptionField.gridx = 5;
+		gbc_donateDescriptionField.gridy = 8;
+		innerDonPanel.add(donateDescriptionField, gbc_donateDescriptionField);
+		donateDescriptionField.setColumns(10);
 		
 		//space
 		JLabel space5 = new JLabel(" ");
@@ -212,6 +214,8 @@ public class Donor extends JPanel
 		innerDonPanel.add(donateBidField, gbc_donateBidField);
 		donateBidField.setColumns(10);
 		
+
+		
 		//a space
 		JLabel space6 = new JLabel(" ");
 		GridBagConstraints gbc_space6 = new GridBagConstraints();
@@ -220,9 +224,12 @@ public class Donor extends JPanel
 		gbc_space6.gridy = 11;
 		innerDonPanel.add(space6, gbc_space6);
 		
+
+		
 		//the donate button
 		JButton donateButton = new JButton("Donate");
 		GridBagConstraints gbc_donateButton = new GridBagConstraints();
+		gbc_donateButton.insets = new Insets(0, 0, 5, 0);
 		gbc_donateButton.anchor = GridBagConstraints.EAST;
 		gbc_donateButton.gridx = 5;
 		gbc_donateButton.gridy = 12;
@@ -236,36 +243,52 @@ public class Donor extends JPanel
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
-				
-				
 				String name = donateNameField.getText();
 				String email = donateEmailField.getText();
 				String phoneNumber = donatePhoneField.getText();
-				String companyName = donateCompanyField.getText();
 				String itemName = donateItemField.getText();
-				double bid;
-				if (phoneNumber.length() != 10 || !phoneNumber.matches("[0-9]{10}")) {
+				String itemDescription = donateDescriptionField.getText();
+				double startingBid;
+				if (!phoneNumber.matches(Validations.PHONE)) {
 					JOptionPane.showMessageDialog(null, "Please enter a valid phone number");
-				}
-				else {
-					if (!donateBidField.getText().matches("[0-9]+")) {
-						JOptionPane.showMessageDialog(null, "Please enter a valid price for your bid.");
-					}
-					else {
-						bid = Double.parseDouble(donateBidField.getText());
-						//TODO: create a new donor with the information
-						//make sure to do error checking.
-						JOptionPane.showMessageDialog(null, "Thank you for donating your item: " + itemName);
-					}
+				} else if (!email.matches(Validations.EMAIL)) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
+				} else if (!donateBidField.getText().matches("[0-9]+([,.][0-9]{1,2})?")) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid price for your starting bid.");
+				} else {
+					startingBid = Double.parseDouble(donateBidField.getText());
+					//TODO: create a new donor with the information
+					//make sure to do error checking.
+					
+					int donorID = Page.Auction.addDonor(name, email, phoneNumber);
+					
+					Page.Auction.addItem(itemName, itemDescription, startingBid, donorID);
+					
+					JOptionPane.showMessageDialog(null, "Thank you, " + name + ", for donating your item: " + itemName + ".");
+//					donateNameField.setText(null);
+//					donateEmailField.setText(null);
+//					donatePhoneField.setText(null);
+//					donateItemField.setText(null);
+//					donateDescriptionField.setText(null);
+					
+					Page.Auction.writeItem(itemName, itemDescription, startingBid, donorID);
+					
+					Page.donatePanel.setVisible(false);
+					
+					Page.homePanel = new Home();
+					Page.contentPane.add(Page.homePanel);
+					Page.homePanel.setVisible(true);
+					
 				}
 			}
+
 		});
 		
 		donateNameField.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
 		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateCompanyField.getText().length() == 0 
-		        		   || donateItemField.getText().length() == 0 || donateBidField.getText().length() == 0)
+		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0 
+		        		   || donateBidField.getText().length() == 0)
 		                donateButton.setEnabled(false);
 		            else
 		            {
@@ -277,8 +300,8 @@ public class Donor extends JPanel
 		donateEmailField.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
 		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateCompanyField.getText().length() == 0 
-		        		   || donateItemField.getText().length() == 0 || donateBidField.getText().length() == 0)
+		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
+		        		   || donateBidField.getText().length() == 0)
 		                donateButton.setEnabled(false);
 		            else
 		            {
@@ -290,21 +313,8 @@ public class Donor extends JPanel
 		donatePhoneField.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
 		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateCompanyField.getText().length() == 0 
-		        		   || donateItemField.getText().length() == 0 || donateBidField.getText().length() == 0)
-		                donateButton.setEnabled(false);
-		            else
-		            {
-		                donateButton.setEnabled(true);
-		            }
-			}
-		});
-		
-		donateCompanyField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateCompanyField.getText().length() == 0 
-		        		   || donateItemField.getText().length() == 0 || donateBidField.getText().length() == 0)
+		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
+		        		   || donateBidField.getText().length() == 0)
 		                donateButton.setEnabled(false);
 		            else
 		            {
@@ -316,8 +326,8 @@ public class Donor extends JPanel
 		donateItemField.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
 		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateCompanyField.getText().length() == 0 
-		        		   || donateItemField.getText().length() == 0 || donateBidField.getText().length() == 0)
+		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
+		        		   || donateBidField.getText().length() == 0)
 		                donateButton.setEnabled(false);
 		            else
 		            {
@@ -329,8 +339,8 @@ public class Donor extends JPanel
 		donateBidField.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
 		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateCompanyField.getText().length() == 0 
-		        		   || donateItemField.getText().length() == 0 || donateBidField.getText().length() == 0)
+		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
+		        		   || donateBidField.getText().length() == 0)
 		                donateButton.setEnabled(false);
 		            else
 		            {

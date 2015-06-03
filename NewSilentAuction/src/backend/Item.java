@@ -83,7 +83,10 @@ public class Item extends Contribution
   }
   public double getCurrentBid()
   {
-    return this.bids.getLast().getAmount();
+	  if (!bids.isEmpty()) {
+		  return this.bids.getLast().getAmount();
+	  } 
+	  return appraisal;
   }
   
   
@@ -112,7 +115,10 @@ public class Item extends Contribution
     
     public int getHighestBidderId()
     {
-      return (int) bids.getLast().getBidder();
+    	if (!bids.isEmpty()) {
+    		return (int) bids.getLast().getBidder();
+    	}
+    	return -1;
     }
     
     

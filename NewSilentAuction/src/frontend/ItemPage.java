@@ -310,7 +310,7 @@ public class ItemPage extends JPanel
 //		double amount = currentItem.statistics.getHighestBidAmt();
 //		String string = "" + amount;
 //		ItemCurrentBidText.setText(string);
-		ItemCurrentBidText.setText("260.00");	//TODO: get the highest bid field to print
+		ItemCurrentBidText.setText("$" + currentItem.getCurrentBid());
 		innerItemPanel.add(ItemCurrentBidText, gbc_ItemCurrentBidText);
 		ItemCurrentBidText.setColumns(10);
 		
@@ -454,7 +454,11 @@ public class ItemPage extends JPanel
 				resetPanel();
 				
 				Page.itemPanel.setVisible(false);
+				
+				Page.homePanel = new Home();
+				Page.contentPane.add(Page.homePanel);
 				Page.homePanel.setVisible(true);
+				
 			}
 		});
 		
@@ -463,7 +467,7 @@ public class ItemPage extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (!itemNewBidField.getText().matches("[0-9]+"))
+				if (!itemNewBidField.getText().matches("[0-9]+([,.][0-9]{1,2})?"))
 				{
 					JOptionPane.showMessageDialog(null, "Please enter a valid bid.");
 				}
@@ -471,19 +475,26 @@ public class ItemPage extends JPanel
 					if (!itemBidderIDText.getText().matches("[0-9]+"))
 					{
 						JOptionPane.showMessageDialog(null, "Please enter a valid ID number. "
-								+ "If you do not have one, you can register by going to the register menu item");
+								+ "If you do not have one, you can register by going to the registration menu item");
 					}
 					else {
 						double bidAmount = Double.parseDouble(itemNewBidField.getText());
 						int bidderID = Integer.parseInt(itemBidderIDText.getText());
-						Bid bid = new Bid(bidderID, bidAmount);
-						currentItem.addBid(bid);
+						if (!Page.Auction.users.containsKey(bidderID)) {
+							JOptionPane.showMessageDialog(null, "This ID is not currently registered. To register, "
+									+ "please visit the registration page.");
+						} else {
+							Bid bid = new Bid(bidderID, bidAmount);
+							currentItem.addBid(bid);
 
-						JOptionPane.showMessageDialog(null, "Thank you for placing your bid value of: $" + bidAmount);
-						itemNewBidButton.setEnabled(false);
-						resetPanel();
-						Page.itemPanel.setVisible(false);
-						Page.homePanel.setVisible(true);
+							JOptionPane.showMessageDialog(null, "Thank you for placing your bid value of: $" + bidAmount);
+							itemNewBidButton.setEnabled(false);
+							resetPanel();
+							Page.itemPanel.setVisible(false);
+							Page.homePanel = new Home();
+							Page.contentPane.add(Page.homePanel);
+							Page.homePanel.setVisible(true);
+						}
 					}
 				}
 			}

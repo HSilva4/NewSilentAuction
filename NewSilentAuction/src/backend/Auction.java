@@ -1,8 +1,10 @@
 package backend;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -27,9 +29,9 @@ public class Auction
     this.auctionDuration = auctionDuration;
     this.cashDonations = new HashMap<Integer, Cash>();
     this.items = new HashMap<Integer, Item>();
-    initializeItems();
     this.users = new HashMap<Integer, User>();
     this.statistics = new Stats();
+    initializeItems();
   }
   
   public int addBidder(String name, String email, String phone)
@@ -67,7 +69,6 @@ public class Auction
 		  FileReader fr = new FileReader(file.getAbsolutePath());
 		  BufferedReader br = new BufferedReader(fr);
 		  String str = br.readLine();
-		  char c;
 		  while (str != null) {
 			  String[] ar = str.split("\\*");
 			  int donorID = addDonor(ar[3], ar[4], ar[5]);
@@ -75,7 +76,24 @@ public class Auction
 			  
 			  str = br.readLine();
 		  }
+		  br.close();
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  }
 	  
+  }
+  
+  public void writeItem(String name, String description, double appraisal, Integer donorID) {
+	  try {
+		  File file = new File("assets/Items.txt");
+
+		  FileWriter fw = new FileWriter(file.getAbsolutePath(), true);
+		  BufferedWriter bw = new BufferedWriter(fw);
+		  
+		  Donor donor = (Donor) users.get(donorID);
+		  
+		  bw.write("\r\n" + name + "*" + description + "*" + appraisal + "*" + donor.name + "*" + donor.email + "*" + donor.phone);
+		  bw.close();
 	  } catch (IOException e) {
 		  e.printStackTrace();
 	  }
@@ -155,7 +173,7 @@ public class Auction
       
       entries.sort(comparators[type]);
       ArrayList<Item> out = new ArrayList<Item>(entries.size());
-      for(int i = 0; i < out.size(); i++)
+      for(int i = 0; i < entries.size(); i++)
       {
         out.add(entries.get(i).getValue());
       }
