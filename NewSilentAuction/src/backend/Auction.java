@@ -1,5 +1,9 @@
 package backend;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -23,7 +27,7 @@ public class Auction
     this.auctionDuration = auctionDuration;
     this.cashDonations = new HashMap<Integer, Cash>();
     this.items = new HashMap<Integer, Item>();
-    
+    initializeItems();
     this.users = new HashMap<Integer, User>();
     this.statistics = new Stats();
   }
@@ -56,6 +60,27 @@ public class Auction
     return cash.ID;
   }
   
+  private void initializeItems() {
+	  try {
+		  File file = new File("assets/Items.txt");
+		  
+		  FileReader fr = new FileReader(file.getAbsolutePath());
+		  BufferedReader br = new BufferedReader(fr);
+		  String str = br.readLine();
+		  char c;
+		  while (str != null) {
+			  String[] ar = str.split("\\*");
+			  int donorID = addDonor(ar[3], ar[4], ar[5]);
+			  addItem(ar[0], ar[1], Double.parseDouble(ar[2]), donorID);
+			  
+			  str = br.readLine();
+		  }
+	  
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  }
+	  
+  }
   
   public Stats generalStats()
   {
