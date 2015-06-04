@@ -151,7 +151,7 @@ public class GeneralStats extends JPanel
 		//The list of items.
 		String[] StringOfItems = new String[items.size()];
 		for (int i = 0; i < items.size(); i++) {
-			StringOfItems[i] = i + ": " + items.get(i).getName() + " $" + items.get(i).getCurrentBid();
+			StringOfItems[i] = String.format("%d: %s $%2.2f", i, items.get(i).getName(), items.get(i).getCurrentBid());
 		}
 		
 		//stats list

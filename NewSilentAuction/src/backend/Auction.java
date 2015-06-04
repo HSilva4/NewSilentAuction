@@ -276,7 +276,7 @@ public class Auction
 			//name
 			comparators[NAME] = (Entry<Integer, Item> e1, Entry<Integer, Item> e2)->
 			{
-				if(criteria == null || criteria == "")
+				if(criteria == null || criteria.equals(""))
 				{
 					return e1.getValue().getName().compareToIgnoreCase(e2.getValue().getName());
 				}
@@ -284,47 +284,84 @@ public class Auction
 				{
 					int o1 = e1.getValue().getName().split((String) criteria).length;
 					int o2 = e2.getValue().getName().split((String) criteria).length;
-					return o1-o2;
+					return o2-o1;
 				} 
 			};
 
 			//bid
 			comparators[CURRENT_BID] = (Entry<Integer, Item> e1, Entry<Integer, Item> e2)->
 			{
-				double target = criteria == null ? Double.MAX_VALUE : Double.parseDouble(criteria);
+			  double target;
+        if(criteria == null || criteria.equals(""))
+        {
+          target = Double.MIN_VALUE;
+        }
+        else 
+        {
+          target = Double.parseDouble(criteria);
+        }
+//        System.out.println(target);
 				int o1 = (int) Math.abs(
 						e1.getValue().statistics.getHighest().getAmount() - target);
 
 				int o2 = (int) Math.abs(
 						e2.getValue().statistics.getHighest().getAmount() - target);
-				return -1 * (o1 - o2);
+				return o1 - o2;
 			};
 
 			//bid count
 			comparators[BID_COUNT] = (Entry<Integer, Item> e1, Entry<Integer, Item> e2)->
 			{
-				double target = criteria == null ? Double.MAX_VALUE : Double.parseDouble(criteria);
+				double target;
+//				System.out.println(e1.getValue().statistics.getBidCount());
+				if(criteria == null || criteria.equals(""))
+				{
+				  target = 0;
+				}
+				else 
+				{
+				  target = Double.parseDouble(criteria);
+				}
+				
 				int o1 = (int) Math.abs(e1.getValue().statistics.getBidCount() - target);
 				int o2 = (int) Math.abs(e2.getValue().statistics.getBidCount() - target);
-				return -1 * (o1 - o2);
+				return o2 - o1;
 			};
 
 			//description
 			comparators[DESCRIPTION] = (Entry<Integer, Item> e1, Entry<Integer, Item> e2)->
 			{
-				int o1 = e1.getValue().getDescription().split((String) criteria).length;
-				int o2 = e2.getValue().getDescription().split((String) criteria).length;
-				return o1-o2;      
+
+        if(criteria == null || criteria.equals(""))
+        {
+          return e1.getValue().getDescription().compareToIgnoreCase(e2.getValue().getDescription());
+        }
+        else
+        {
+          int o1 = e1.getValue().getDescription().split((String) criteria).length;
+          int o2 = e2.getValue().getDescription().split((String) criteria).length;
+          return o2 - o1;
+        } 
 			};
 
 			//appraisal
 			comparators[APPRAISAL] = (Entry<Integer, Item> e1, Entry<Integer, Item> e2)->
 			{
-				double target = criteria == null ? Double.MAX_VALUE : Double.parseDouble(criteria);
-				int o1 = (int) Math.abs(e1.getValue().getAppraisal() - target);
-
-				int o2 = (int) Math.abs(e2.getValue().getAppraisal() - target);
-				return -1 * (o1 - o2);
+			  double target;
+        if(criteria == null || criteria.equals(""))
+        {
+          target = Integer.MAX_VALUE;
+        }
+        else 
+        {
+          target = Double.parseDouble(criteria);
+        }
+        
+				int o1 = (int) Math.abs(e1.getValue().statistics.getAppraisal() - target);
+//				System.out.println(e1.getValue().statistics.getAppraisal() - target);
+				int o2 = (int) Math.abs(e2.getValue().statistics.getAppraisal() - target);
+				
+				return (o1 - o2);
 			};
 
 			entries.sort(comparators[type]);

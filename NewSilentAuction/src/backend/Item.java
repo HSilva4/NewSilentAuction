@@ -50,6 +50,7 @@ public class Item extends Contribution
 	{
 		super(donor.ID, appraisal);
 		this.bids = new LinkedList<Bid>();
+		this.bids.add(new Bid(0, appraisal));
 		this.name = name;
 		this.donor = donor;
 		this.appraisal = appraisal;
@@ -298,7 +299,7 @@ public class Item extends Contribution
 		 */
 		public double getAppraisal()
 		{
-			return getValue();
+			return bids.getFirst().getValue();
 		}
 
 		/**
