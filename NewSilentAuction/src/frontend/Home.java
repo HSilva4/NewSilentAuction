@@ -1,16 +1,19 @@
 package frontend;
 
+import backend.Item;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -18,25 +21,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import backend.Auction;
-import backend.Auction.Stats;
-import backend.Bid;
-import backend.Item;
-//import backend.User;
-
-
-
-
-
-
-
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * This class creates the home 'page' which will hold all of the items that are able to be bid on.
@@ -45,6 +30,7 @@ import java.util.Arrays;
  * @version 0.0.0.1
  * @since 20.05.2015
  */
+@SuppressWarnings("serial")
 public class Home extends JPanel
 {
 
@@ -53,9 +39,13 @@ public class Home extends JPanel
 	//Text field that holds the filter box.
 	private JTextField homeFilterText;
 	
+	//Holds all the items
 	private ArrayList<Item> items;
 	
+	//items in list form.
 	private static JList<String> homeItemsList;
+	
+	//a scroll pane for the list.
 	private JScrollPane homeScrollPane;
 	
 //Constructor
@@ -63,9 +53,10 @@ public class Home extends JPanel
 	/**
 	 * Creates the home page.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked", "serial" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Home()
 	{
+		//puts them in the normal order.
 		items = Page.Auction.statistics.filter(0, null);
 		//Make the layout border layout.
 		setLayout(new BorderLayout(0, 0));
@@ -167,39 +158,13 @@ public class Home extends JPanel
 		JLabel homeItemstoBidLabel = new JLabel("Items to Bid On");
 		homeScrollPane.setColumnHeaderView(homeItemstoBidLabel);
 		
-//		/****************************************************************************************************************************/
-//		
-//		
-//		items.add(new Item("Tabel", "a nice kitchen tabel", 50.00, null));
-//		items.add(new Item("Chair", "a nice kitchen chair", 30.00, null));
-//		items.add(new Item("Whale Watching Experience", "a wonderful trip to the beautiful islands of washington", 250.00, null));
-//		items.add(new Item("Diablo 3", "a 4 foot rubber and lubricated dildo", 100.00, null));
-//		items.add(new Item("Computer mouse", "", 20.00, null));
-//		for(Item i: items)
-//		{
-//			i.addBid(new Bid(696969, 260.00));
-//		}
-//		
-//		/****************************************************************************************************************************/
-		
-		//items list
-//		JTextField itemField = new JTextField();
-//		JList<String> homeItemsList = new JList<String>();
-//		String[] items = new String[20]; //20 is the number of items
-//		for (int i = 0; i < 20; i++)
-//		{
-//			items[i] = i + ": hello" + i;//"index: item_name highest_price"
-//			itemField.setText(items[i]);
-//		}
-		
-//		ArrayList<Items> items = Auction.getlistofitems or whatever
+		//Formats the list.
 		String[] StringOfItems = new String[items.size()];
-		for (int i = 0; i < items.size(); i++) {
+		for (int i = 0; i < items.size(); i++)
+		{
 			StringOfItems[i] = i + ": " + items.get(i).getName() + " $" + items.get(i).getCurrentBid();
-//			itemField.setText(StringOfItems[i]);
 		}
 		homeItemsList = new JList<String>(StringOfItems);
-
 		homeItemsList.setModel(new AbstractListModel()
 		{
 			String[] values = StringOfItems;
@@ -213,12 +178,11 @@ public class Home extends JPanel
 			}
 		});
 		
-		homeItemsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	//allows only a single item to be selected
+		homeItemsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //allows only a single item to be selected
 		homeScrollPane.setViewportView(homeItemsList);
 		
 		//bid button
 		JButton homeBidButton = new JButton("Bid on Selected Item");
-
 		GridBagConstraints gbc_homeBidButton = new GridBagConstraints();
 		gbc_homeBidButton.anchor = GridBagConstraints.EAST;
 		gbc_homeBidButton.gridx = 1;
@@ -229,17 +193,21 @@ public class Home extends JPanel
 		
 	/** Start listeners */
 		//the home filter button
-		homeFilterButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		homeFilterButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				homeBidButton.setEnabled(false);
 				int type = homeFilterCombo.getSelectedIndex();
 				String criteria = homeFilterText.getText();
 				items = Page.Auction.statistics.filter(type, criteria);
-				for (Item item : items) {
+				for (Item item : items)
+				{
 					System.out.println(item.getName());
 				}
 				String[] StringOfItems = new String[items.size()];
-				for (int i = 0; i < items.size(); i++) {
+				for (int i = 0; i < items.size(); i++)
+				{
 					StringOfItems[i] = i + ": " + items.get(i).getName() + " " + items.get(i).getCurrentBid();
 				}
 				
@@ -261,19 +229,21 @@ public class Home extends JPanel
 				homeItemsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	//allows only a single item to be selected
 				homeScrollPane.setViewportView(homeItemsList);
 				
-				homeItemsList.addListSelectionListener(new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent e) {
+				homeItemsList.addListSelectionListener(new ListSelectionListener()
+				{
+					public void valueChanged(ListSelectionEvent e)
+					{
 						homeBidButton.setEnabled(true);
 					}
-				});
-				
+				});	
 			}
 		});
 		
-		
 		//the home bid button listener
-		homeBidButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		homeBidButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
 				int index = homeItemsList.getSelectedIndex();
 				//create new item panel
 				Page.itemPanel = new ItemPage(items.get(index));
@@ -282,13 +252,14 @@ public class Home extends JPanel
 				homeBidButton.setEnabled(false);
 				Page.homePanel.setVisible(false);
 				Page.itemPanel.setVisible(true);
-
 			}
 		});
-
 		
-		homeItemsList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
+		//enable bid button if selection is chosen.
+		homeItemsList.addListSelectionListener(new ListSelectionListener()
+		{
+			public void valueChanged(ListSelectionEvent e)
+			{
 				homeBidButton.setEnabled(true);
 			}
 		});

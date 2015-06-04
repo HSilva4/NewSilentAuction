@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -24,9 +25,7 @@ import backend.*;
  * @version 0.0.0.1
  * @since 20.05.2015
  */
-
-
-
+@SuppressWarnings("serial")
 public class Page extends JFrame
 {
 
@@ -45,6 +44,7 @@ public class Page extends JFrame
 	private static double screenwidth = dm.getWidth();
 	private static double screenheight = dm.getHeight();
 	
+	//Holds each of the panels.
 	public static JPanel itemPanel;	
 	public static JPanel homePanel;
 	public static JPanel registrationPanel;
@@ -53,9 +53,8 @@ public class Page extends JFrame
 	public static JPanel QRPanel;
 	public static JPanel specificStatsPanel;
 	
+	//And the auction we run.
 	public static Auction Auction = new Auction(102394820);
-	
-	
 	
 //Main
 	
@@ -258,7 +257,13 @@ public class Page extends JFrame
 		setIconImage(img.getImage());
 	}	
 	
-	private void setAllVisible(boolean bool) {
+	/**
+	 * Set all panels to visible
+	 * 
+	 * @param bool if we want them all visible or not.
+	 */
+	private void setAllVisible(boolean bool)
+	{
 		homePanel.setVisible(bool);
 		donatePanel.setVisible(bool);
 		registrationPanel.setVisible(bool);
@@ -266,6 +271,5 @@ public class Page extends JFrame
 		specificStatsPanel.setVisible(bool);
 		itemPanel.setVisible(bool);
 		generalStatsPanel.setVisible(bool);
-		
 	}
 }

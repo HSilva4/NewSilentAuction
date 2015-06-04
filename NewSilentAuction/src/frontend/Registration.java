@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
  * @version 0.0.0.1
  * @since 20.05.2015
  */
+@SuppressWarnings("serial")
 public class Registration extends JPanel
 {
 
@@ -66,7 +67,6 @@ public class Registration extends JPanel
 		
 		//name text box
 		nameField = new JTextField();
-
 		GridBagConstraints gbc_nameField = new GridBagConstraints();
 		gbc_nameField.insets = new Insets(0, 0, 5, 0);
 		gbc_nameField.fill = GridBagConstraints.HORIZONTAL;
@@ -140,15 +140,13 @@ public class Registration extends JPanel
 		//the register button
 		JButton btnRegister = new JButton("Register");
 		btnRegister.setEnabled(false);
-
-	/** End fields */
-		
 		GridBagConstraints gbc_btnRegister = new GridBagConstraints();
 		gbc_btnRegister.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRegister.anchor = GridBagConstraints.EAST;
 		gbc_btnRegister.gridx = 5;
 		gbc_btnRegister.gridy = 6;
 		innerRegPanel.add(btnRegister, gbc_btnRegister);
+	/** End fields */
 		
 	/** Start listeners */
 		//register button
@@ -156,18 +154,19 @@ public class Registration extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//TODO Create a new user with ID
-				
 				String name = nameField.getText();
 				String email = emailField.getText();
 				String phoneNumber = phoneField.getText();
-				if (!phoneNumber.matches(Validations.PHONE)) {
+				if (!phoneNumber.matches(Validations.PHONE))
+				{
 					JOptionPane.showMessageDialog(null, "Please enter a valid phone number");
 				}
-				else if (!email.matches(Validations.EMAIL)) {
+				else if (!email.matches(Validations.EMAIL))
+				{
 					JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
 				}
-				else {
+				else
+				{
 					
 					int bidderID = Page.Auction.addBidder(name, email, phoneNumber);
 					Page.Auction.writeBidder(name, email, phoneNumber, bidderID);
@@ -180,15 +179,30 @@ public class Registration extends JPanel
 					Page.homePanel = new Home();
 					Page.contentPane.add(Page.homePanel);
 					Page.homePanel.setVisible(true);
-					
 				}
-					
-				
 			}
 		});
 		
-		nameField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
+		//enable register button when name is entered correctly.
+		nameField.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent e)
+			{
+		        if(emailField.getText().length() == 0 || phoneField.getText().length() == 0 
+		            || nameField.getText().length() == 0)
+		            btnRegister.setEnabled(false);
+		        else
+		        {
+		            btnRegister.setEnabled(true);
+		        }
+			}
+		});
+		
+		//same for email field
+		emailField.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent e)
+			{
 		           if(emailField.getText().length() == 0 || phoneField.getText().length() == 0 
 		        		   || nameField.getText().length() == 0)
 		                btnRegister.setEnabled(false);
@@ -199,20 +213,11 @@ public class Registration extends JPanel
 			}
 		});
 		
-		emailField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-		           if(emailField.getText().length() == 0 || phoneField.getText().length() == 0 
-		        		   || nameField.getText().length() == 0)
-		                btnRegister.setEnabled(false);
-		            else
-		            {
-		                btnRegister.setEnabled(true);
-		            }
-			}
-		});
-		
-		phoneField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
+		//and for phone
+		phoneField.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent e)
+			{
 		           if(emailField.getText().length() == 0 || phoneField.getText().length() == 0 
 		        		   || nameField.getText().length() == 0)
 		                btnRegister.setEnabled(false);

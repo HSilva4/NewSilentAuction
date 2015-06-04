@@ -28,6 +28,7 @@ import backend.Item;
  * @version 0.0.0.1
  * @since 20.05.2015
  */
+@SuppressWarnings("serial")
 public class GeneralStats extends JPanel
 {
 
@@ -37,18 +38,24 @@ public class GeneralStats extends JPanel
 	private JTextField genStatsNumberText;
 	private JTextField genStatsAverageText;
 	
+	//the list of items.
 	private ArrayList<Item> items;
+	
+	//the scroll pane to hold the items.
 	private JScrollPane genStatsScrollPanel;
-	private JList genStatsList;
+	
+	//the jlist in the scroll pane.
+	private JList<String> genStatsList;
 	
 //Constructor
 	
 	/**
 	 * Creates the full general stats page.
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes", "serial" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GeneralStats()
 	{
+		//Fill the list with the default order for the items.
 		items = Page.Auction.statistics.filter(0, null);
 		//Sets the layout to border layout.
 		setLayout(new BorderLayout(0, 0));
@@ -114,6 +121,7 @@ public class GeneralStats extends JPanel
 		genStatsAverageText.setColumns(10);
 		genStatsAverageText.setText("" + Page.Auction.statistics.averageBidsPlaced());
 		
+		//a space
 		JLabel space_2 = new JLabel(" ");
 		GridBagConstraints gbc_space_2 = new GridBagConstraints();
 		gbc_space_2.insets = new Insets(0, 0, 5, 5);
@@ -136,9 +144,11 @@ public class GeneralStats extends JPanel
 		genStatsScrollPanel = new JScrollPane();
 		genStatsItemPanel.add(genStatsScrollPanel, BorderLayout.CENTER);
 		
+		//list label
 		JLabel genStatsListofLabel = new JLabel("List of All Items");
 		genStatsScrollPanel.setColumnHeaderView(genStatsListofLabel);
 		
+		//The list of items.
 		String[] StringOfItems = new String[items.size()];
 		for (int i = 0; i < items.size(); i++) {
 			StringOfItems[i] = i + ": " + items.get(i).getName() + " $" + items.get(i).getCurrentBid();
@@ -162,9 +172,6 @@ public class GeneralStats extends JPanel
 		genStatsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	//allows only a single item to be selected
 		genStatsScrollPanel.setViewportView(genStatsList);
 		
-		//stats label
-
-		
 		//get specific button
 		JButton genStatsButton = new JButton("Get Specific Stats");
 		GridBagConstraints gbc_genStatsButton = new GridBagConstraints();
@@ -178,8 +185,10 @@ public class GeneralStats extends JPanel
 		
 	/** Start listeners */
 		//the general statistics button listener
-		genStatsButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		genStatsButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
 				int index = genStatsList.getSelectedIndex();
 				//create new specific stats panel
 				Page.specificStatsPanel = new SpecificStats(items.get(index));
@@ -188,12 +197,14 @@ public class GeneralStats extends JPanel
 				genStatsButton.setEnabled(false);
 				Page.generalStatsPanel.setVisible(false);
 				Page.specificStatsPanel.setVisible(true);
-
 			}
 		});
 		
-		genStatsList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
+		//enables the button when an item is clicked.
+		genStatsList.addListSelectionListener(new ListSelectionListener()
+		{
+			public void valueChanged(ListSelectionEvent e)
+			{
 				genStatsButton.setEnabled(true);
 			}
 		});

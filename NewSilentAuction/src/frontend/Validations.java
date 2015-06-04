@@ -1,5 +1,12 @@
 package frontend;
 
+/**
+ * This class validates phone and email fields.
+ * 
+ * @author The Expendables
+ * @version 0.0.0.1
+ * @since 20.05.2015
+ */
 public interface Validations
 {
   public static final String EMAIL = 

@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
  * @version 0.0.0.1
  * @since 20.05.2015
  */
+@SuppressWarnings("serial")
 public class Donor extends JPanel
 {
 	
@@ -69,7 +70,6 @@ public class Donor extends JPanel
 		
 		//name text box
 		donateNameField = new JTextField();
-
 		donateNameField.setColumns(10);
 		GridBagConstraints gbc_donateNameField = new GridBagConstraints();
 		gbc_donateNameField.fill = GridBagConstraints.HORIZONTAL;
@@ -132,8 +132,6 @@ public class Donor extends JPanel
 		gbc_donatePhoneField.gridy = 4;
 		innerDonPanel.add(donatePhoneField, gbc_donatePhoneField);
 		
-
-		
 		//a space
 		JLabel space3 = new JLabel(" ");
 		GridBagConstraints gbc_space3 = new GridBagConstraints();
@@ -161,8 +159,6 @@ public class Donor extends JPanel
 		innerDonPanel.add(donateItemField, gbc_donateItemField);
 		donateItemField.setColumns(10);
 		
-
-		
 		//a space
 		JLabel space4 = new JLabel(" ");
 		GridBagConstraints gbc_space4 = new GridBagConstraints();
@@ -171,6 +167,7 @@ public class Donor extends JPanel
 		gbc_space4.gridy = 7;
 		innerDonPanel.add(space4, gbc_space4);
 		
+		//description label
 		JLabel donateDescriptionLabel = new JLabel("Enter your item description:");
 		GridBagConstraints gbc_donateDescriptionLabel = new GridBagConstraints();
 		gbc_donateDescriptionLabel.insets = new Insets(0, 0, 5, 5);
@@ -178,6 +175,7 @@ public class Donor extends JPanel
 		gbc_donateDescriptionLabel.gridy = 8;
 		innerDonPanel.add(donateDescriptionLabel, gbc_donateDescriptionLabel);
 		
+		//description field
 		donateDescriptionField = new JTextField();
 		GridBagConstraints gbc_donateDescriptionField = new GridBagConstraints();
 		gbc_donateDescriptionField.insets = new Insets(0, 0, 5, 0);
@@ -214,8 +212,6 @@ public class Donor extends JPanel
 		innerDonPanel.add(donateBidField, gbc_donateBidField);
 		donateBidField.setColumns(10);
 		
-
-		
 		//a space
 		JLabel space6 = new JLabel(" ");
 		GridBagConstraints gbc_space6 = new GridBagConstraints();
@@ -223,8 +219,6 @@ public class Donor extends JPanel
 		gbc_space6.gridx = 5;
 		gbc_space6.gridy = 11;
 		innerDonPanel.add(space6, gbc_space6);
-		
-
 		
 		//the donate button
 		JButton donateButton = new JButton("Donate");
@@ -243,22 +237,29 @@ public class Donor extends JPanel
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
+				//Get the fields from the text boxes.
 				String name = donateNameField.getText();
 				String email = donateEmailField.getText();
 				String phoneNumber = donatePhoneField.getText();
 				String itemName = donateItemField.getText();
 				String itemDescription = donateDescriptionField.getText();
 				double startingBid;
-				if (!phoneNumber.matches(Validations.PHONE)) {
+				//Check to make sure the fields are correct.
+				if (!phoneNumber.matches(Validations.PHONE))
+				{
 					JOptionPane.showMessageDialog(null, "Please enter a valid phone number");
-				} else if (!email.matches(Validations.EMAIL)) {
+				}
+				else if (!email.matches(Validations.EMAIL))
+				{
 					JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
-				} else if (!donateBidField.getText().matches("[0-9]+([,.][0-9]{1,2})?")) {
+				}
+				else if (!donateBidField.getText().matches("[0-9]+([,.][0-9]{1,2})?"))
+				{
 					JOptionPane.showMessageDialog(null, "Please enter a valid price for your starting bid.");
-				} else {
+				}
+				else
+				{
 					startingBid = Double.parseDouble(donateBidField.getText());
-					//TODO: create a new donor with the information
-					//make sure to do error checking.
 					
 					int donorID = Page.Auction.addDonor(name, email, phoneNumber);
 					
@@ -278,76 +279,90 @@ public class Donor extends JPanel
 					Page.homePanel = new Home();
 					Page.contentPane.add(Page.homePanel);
 					Page.homePanel.setVisible(true);
-					
 				}
 			}
 
 		});
 		
-		donateNameField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0 
-		        		   || donateBidField.getText().length() == 0)
-		                donateButton.setEnabled(false);
-		            else
-		            {
-		                donateButton.setEnabled(true);
-		            }
+		//to make sure that all the fields are included before attempting to donate.
+		//name field listener
+		donateNameField.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent e)
+			{
+				if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
+		        	|| donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0 
+		        	|| donateBidField.getText().length() == 0)
+		            donateButton.setEnabled(false);
+		        else
+		        {
+		            donateButton.setEnabled(true);
+		        }
 			}
 		});
 		
-		donateEmailField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
-		        		   || donateBidField.getText().length() == 0)
-		                donateButton.setEnabled(false);
-		            else
-		            {
-		                donateButton.setEnabled(true);
-		            }
+		//email field
+		donateEmailField.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent e)
+			{
+				if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
+					|| donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
+		        	|| donateBidField.getText().length() == 0)
+		            donateButton.setEnabled(false);
+				else
+				{
+					donateButton.setEnabled(true);
+		        }
 			}
 		});
 		
-		donatePhoneField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
-		        		   || donateBidField.getText().length() == 0)
-		                donateButton.setEnabled(false);
-		            else
-		            {
-		                donateButton.setEnabled(true);
-		            }
+		//phone field
+		donatePhoneField.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent e)
+			{
+				if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
+					|| donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
+		        	|| donateBidField.getText().length() == 0)
+		            donateButton.setEnabled(false);
+		        else
+		        {
+		            donateButton.setEnabled(true);
+		        }
 			}
 		});
 		
-		donateItemField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
-		        		   || donateBidField.getText().length() == 0)
-		                donateButton.setEnabled(false);
-		            else
-		            {
-		                donateButton.setEnabled(true);
-		            }
+		//item field
+		donateItemField.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent e)
+			{
+				if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
+				    || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
+		        	|| donateBidField.getText().length() == 0)
+		            donateButton.setEnabled(false);
+		        else
+		        {
+		            donateButton.setEnabled(true);
+		        }
 			}
 		});
 		
-		donateBidField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-		           if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
-		        		   || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
-		        		   || donateBidField.getText().length() == 0)
-		                donateButton.setEnabled(false);
-		            else
-		            {
-		                donateButton.setEnabled(true);
-		            }
+		//bid field
+		donateBidField.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent e)
+			{
+				if(donateNameField.getText().length() == 0 || donateEmailField.getText().length() == 0 
+		            || donatePhoneField.getText().length() == 0 || donateItemField.getText().length() == 0
+		        	|| donateBidField.getText().length() == 0)
+		            donateButton.setEnabled(false);
+		        else
+		        {
+		            donateButton.setEnabled(true);
+		        }
 			}
 		});
 	}	
-
 }

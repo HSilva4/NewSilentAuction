@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import backend.Item;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -21,6 +22,7 @@ import java.awt.event.ActionEvent;
  * @version 0.0.0.1
  * @since 20.05.2015
  */
+@SuppressWarnings("serial")
 public class SpecificStats extends JPanel
 {
 
@@ -32,7 +34,9 @@ public class SpecificStats extends JPanel
 	private JTextField specNumberBidsText;
 	private JTextField specStartingBidText;
 	
+	//holds the current item.
 	private Item currentItem;
+	
 //Constructor
 	
 	/**
@@ -134,7 +138,6 @@ public class SpecificStats extends JPanel
 		specNumberBidsText.setColumns(10);
 		specNumberBidsText.setText("" + currentItem.statistics.getBidCount());
 		
-		
 		//a space
 		JLabel space__3 = new JLabel(" ");
 		GridBagConstraints gbc_space__3 = new GridBagConstraints();
@@ -174,7 +177,6 @@ public class SpecificStats extends JPanel
 		
 		//back button
 		JButton specBackButton = new JButton("Back");
-
 		GridBagConstraints gbc_specBackButton = new GridBagConstraints();
 		gbc_specBackButton.anchor = GridBagConstraints.WEST;
 		gbc_specBackButton.insets = new Insets(0, 0, 0, 5);
@@ -184,8 +186,11 @@ public class SpecificStats extends JPanel
 	/** End fields */
 		
 	/** Start listeners */
-		specBackButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		//back button functionality.
+		specBackButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				Page.specificStatsPanel.setVisible(false);
 				
 				Page.generalStatsPanel = new GeneralStats();
@@ -193,5 +198,6 @@ public class SpecificStats extends JPanel
 				Page.generalStatsPanel.setVisible(true);
 			}
 		});
+	/** End listeners */
 	}
 }
