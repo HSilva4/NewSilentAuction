@@ -201,10 +201,10 @@ public class Home extends JPanel
 				int type = homeFilterCombo.getSelectedIndex();
 				String criteria = homeFilterText.getText();
 				items = Page.Auction.statistics.filter(type, criteria);
-				for (Item item : items)
-				{
-					System.out.println(item.getName());
-				}
+//				for (Item item : items)
+//				{
+//					System.out.println(item.getName());
+//				}
 				String[] StringOfItems = new String[items.size()];
 				for (int i = 0; i < items.size(); i++)
 				{
