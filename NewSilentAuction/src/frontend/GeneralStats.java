@@ -90,7 +90,7 @@ public class GeneralStats extends JPanel
 		gbc_genStatsNumberText.gridy = 0;
 		innerGenStatsPanel.add(genStatsNumberText, gbc_genStatsNumberText);
 		genStatsNumberText.setColumns(10);
-		genStatsNumberText.setText("" + Page.Auction.statistics.totalBidsPlaced());
+		genStatsNumberText.setText("" + (Page.Auction.statistics.totalBidsPlaced() - Page.Auction.items.size()));
 		
 		//a space
 		JLabel space_1 = new JLabel(" ");
@@ -119,7 +119,7 @@ public class GeneralStats extends JPanel
 		gbc_genStatsAverageText.gridy = 2;
 		innerGenStatsPanel.add(genStatsAverageText, gbc_genStatsAverageText);
 		genStatsAverageText.setColumns(10);
-		genStatsAverageText.setText("" + Page.Auction.statistics.averageBidsPlaced());
+		genStatsAverageText.setText("" + (Page.Auction.statistics.averageBidsPlaced() - 1));
 		
 		//a space
 		JLabel space_2 = new JLabel(" ");
