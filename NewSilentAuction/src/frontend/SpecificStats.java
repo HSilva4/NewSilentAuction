@@ -136,7 +136,7 @@ public class SpecificStats extends JPanel
 		gbc_specNumberBidsText.gridy = 4;
 		innerSpecPanel.add(specNumberBidsText, gbc_specNumberBidsText);
 		specNumberBidsText.setColumns(10);
-		specNumberBidsText.setText("" + currentItem.statistics.getBidCount());
+		specNumberBidsText.setText("" + (currentItem.statistics.getBidCount() - 1));
 		
 		//a space
 		JLabel space__3 = new JLabel(" ");
