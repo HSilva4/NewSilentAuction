@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 /**
  * This class creates the specific stats 'page' that shows stats for one single item.
  * 
- * @author The Expendables
+ * @author Hannah Silva, Conner Martin
  * @version 0.0.0.1
  * @since 20.05.2015
  */

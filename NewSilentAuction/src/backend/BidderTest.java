@@ -10,8 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author Hannah
- *
+ * JUnit test class for the Bidder class.
+ * 
+ * @author Hannah Silva
  */
 public class BidderTest {
 
@@ -25,7 +26,6 @@ public class BidderTest {
 		myBidder = new Bidder("Bob", "Bob@live.com", "5551234");
 		
 	}
-
 
 	/**
 	 * Test method for {@link backend.Bidder#Bidder(java.lang.String, java.lang.String, java.lang.String)}.

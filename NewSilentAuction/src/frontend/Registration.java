@@ -19,7 +19,7 @@ import java.awt.event.KeyEvent;
 /**
  * This class creates the registration 'page' so that users can register to be a new user.
  * 
- * @author The Expendables
+ * @author Hannah Silva, Conner Martin
  * @version 0.0.0.1
  * @since 20.05.2015
  */

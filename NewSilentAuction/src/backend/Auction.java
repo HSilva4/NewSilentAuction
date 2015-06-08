@@ -121,6 +121,8 @@ public class Auction
 
 	/**
 	 * sets the list of items for this auction to the text file in assets.
+	 * 
+	 * @author Hannah Silva
 	 */
 	private void initializeItems()
 	{
@@ -148,6 +150,8 @@ public class Auction
 
 	/**
 	 * does the same as above with the users.
+	 * 
+	 * @author Hannah Silva
 	 */
 	private void initializeUsers()
 	{
@@ -181,6 +185,8 @@ public class Auction
 	 * @param description is the description of the item.
 	 * @param appraisal is the apraisal price.
 	 * @param donorID is the id of the donor.
+	 * 
+	 * @author Hannah Silva
 	 */
 	public void writeItem(String name, String description, double appraisal, Integer donorID)
 	{
@@ -209,6 +215,8 @@ public class Auction
 	 * @param email contact info.
 	 * @param phone more contact info.
 	 * @param ID is the id of the bidder.
+	 * 
+	 * @author Hannah Silva
 	 */
 	public void writeBidder(String name, String email, String phone, Integer ID)
 	{

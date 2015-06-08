@@ -3,7 +3,7 @@ package frontend;
 /**
  * This class validates phone and email fields.
  * 
- * @author The Expendables
+ * @author Christopher Ottersen
  * @version 0.0.0.1
  * @since 20.05.2015
  */

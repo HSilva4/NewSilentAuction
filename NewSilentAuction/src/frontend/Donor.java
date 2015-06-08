@@ -19,7 +19,7 @@ import java.awt.event.KeyEvent;
 /**
  * This class creates the donor 'page' which holds the fields for a person to become a donor.
  * 
- * @author The Expendables
+ * @author Hannah Silva, Conner Martin
  * @version 0.0.0.1
  * @since 20.05.2015
  */

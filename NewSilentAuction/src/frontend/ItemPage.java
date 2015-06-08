@@ -23,7 +23,7 @@ import java.awt.event.KeyEvent;
 /**
  * This class creates the item 'page' where you can see some info and bid.
  * 
- * @author The Expendables
+ * @author Hannah Silva, Conner Martin
  * @version 0.0.0.1
  * @since 20.05.2015
  */

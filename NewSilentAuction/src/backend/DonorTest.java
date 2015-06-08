@@ -10,7 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author Hannah
+ * JUnit test class for the Donor class
+ * 
+ * @author Hannah Silva
  *
  */
 public class DonorTest {
@@ -24,7 +26,6 @@ public class DonorTest {
 	public void setUp() throws Exception {
 		myDonor = new Donor("Bob", "Bob@live.com", "5551234");
 	}
-
 
 	/**
 	 * Test method for {@link backend.Donor#Donor(java.lang.String, java.lang.String, java.lang.String)}.
