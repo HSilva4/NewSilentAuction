@@ -1,6 +1,5 @@
 package backend;
 
-import java.util.EventListener;
 import java.util.Random;
 
 /**
@@ -10,7 +9,7 @@ import java.util.Random;
  * @version 0.0.0.1
  * @since 20.05.2015
  */
-abstract class User implements EventListener
+abstract class User
 {
 	
 //Fields
@@ -65,16 +64,6 @@ abstract class User implements EventListener
 		return this.ID;
 	}
 
-	/**
-	 * Returns the hash code for this user.
-	 * 
-	 * @return the hashcode for this user.
-	 */
-	@Override
-	public int hashCode()
-	{
-		return this.name.hashCode();
-	}
 
 	/**
 	 * Returns the randomly created user id for this user.

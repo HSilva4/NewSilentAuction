@@ -54,14 +54,4 @@ public class Bidder extends User
 		}
 	}
 
-	/**
-	 * This method will bid on an item using the QR code.
-	 * 
-	 * @param item  the item to be bidded on.
-	 * @param amount is the amount to bid on the new item.
-	 */
-	public void bidQR(final Item item, final double amount)
-	{
-		//TODO maybe implemented.
-	}
 }

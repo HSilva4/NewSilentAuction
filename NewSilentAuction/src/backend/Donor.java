@@ -16,7 +16,7 @@ public class Donor extends User
 //Fields
 	
 	//A list of the contributions this donor makes.
-	private final List<Contribution> donations;
+	protected final List<Contribution> donations;
 
 //Constructor
 	
@@ -35,15 +35,6 @@ public class Donor extends User
 
 //Methods
 	
-	/**
-	 * Allows the donor to make a donation of just cash.
-	 * 
-	 * @param cash the amount of money to be donated.
-	 */
-	public void donate(final double cash)
-	{
-		this.donate(new Cash(this.getId(), cash));
-	}
 	
 	/**
 	 * Allows the donor to make a donation of an item.
