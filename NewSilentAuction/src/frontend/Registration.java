@@ -19,7 +19,7 @@ import java.awt.event.KeyEvent;
 /**
  * This class creates the registration 'page' so that users can register to be a new user.
  * 
- * @author Hannah Silva, Conner Martin
+ * @author The Expendables
  * @version 0.0.0.1
  * @since 20.05.2015
  */
@@ -192,13 +192,14 @@ public class Registration extends JPanel
 		{
 			public void keyReleased(KeyEvent e)
 			{
-		        if(emailField.getText().length() == 0 || phoneField.getText().length() == 0 
-		            || nameField.getText().length() == 0)
-		            btnRegister.setEnabled(false);
-		        else
-		        {
-		            btnRegister.setEnabled(true);
-		        }
+        btnRegister.setEnabled(
+            emailField.getText().length() * phoneField.getText().length() *
+            nameField.getText().length() != 0);
+			  /*
+			      btnRegister.setEnabled(
+			          emailField.getText().matches(Validations.EMAIL) && 
+			          phoneField.getText().matches(Validations.PHONE) &&
+			          nameField.getText().matches(Validations.NAME));*/
 			}
 		});
 		
@@ -207,13 +208,15 @@ public class Registration extends JPanel
 		{
 			public void keyReleased(KeyEvent e)
 			{
-		           if(emailField.getText().length() == 0 || phoneField.getText().length() == 0 
-		        		   || nameField.getText().length() == 0)
-		                btnRegister.setEnabled(false);
-		            else
-		            {
-		                btnRegister.setEnabled(true);
-		            }
+
+        btnRegister.setEnabled(
+            emailField.getText().length() * phoneField.getText().length() *
+            nameField.getText().length() != 0);
+        /*
+        btnRegister.setEnabled(
+            emailField.getText().matches(Validations.EMAIL) && 
+            phoneField.getText().matches(Validations.PHONE) &&
+            nameField.getText().matches(Validations.NAME));*/
 			}
 		});
 		
@@ -222,13 +225,15 @@ public class Registration extends JPanel
 		{
 			public void keyReleased(KeyEvent e)
 			{
-		           if(emailField.getText().length() == 0 || phoneField.getText().length() == 0 
-		        		   || nameField.getText().length() == 0)
-		                btnRegister.setEnabled(false);
-		            else
-		            {
-		                btnRegister.setEnabled(true);
-		            }
+
+        btnRegister.setEnabled(
+            emailField.getText().length() * phoneField.getText().length() *
+            nameField.getText().length() != 0);
+			  /*
+        btnRegister.setEnabled(
+            emailField.getText().matches(Validations.EMAIL) && 
+            phoneField.getText().matches(Validations.PHONE) &&
+            nameField.getText().matches(Validations.NAME));*/
 			}
 		});
 	}
