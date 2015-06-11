@@ -273,8 +273,6 @@ public class Donor extends JPanel
 					donateItemField.setText(null);
 					donateDescriptionField.setText(null);
 					
-					Page.Auction.writeItem(itemId);
-					
 					Page.donatePanel.setVisible(false);
 					
 					Page.homePanel = new Home();

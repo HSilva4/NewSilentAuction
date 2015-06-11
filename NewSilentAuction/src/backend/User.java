@@ -64,7 +64,7 @@ abstract class User implements EventListener
     {
       throw new IllegalArgumentException("Invalid Phone parameter, " + phone);
     }
-    if(assignedIds.contains(ID) || ID < 0)
+    if(/*assignedIds.contains(ID) ||*/ ID < 0)
     {
       throw new IllegalArgumentException("Invalid ID: " + ID);
     }

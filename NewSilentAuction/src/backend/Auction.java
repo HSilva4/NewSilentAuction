@@ -65,7 +65,7 @@ public class Auction extends Statistics
 
 
 
-
+  boolean start = true;
 
 
 
@@ -105,10 +105,6 @@ public class Auction extends Statistics
   private String lastCriteria;
   private boolean reverseOrder;
 	//Holds the donations, items and users.
-	/**
-	 * Contains records of cash donations referenced by id.
-	 */
-	public Map<Integer, Cash> cashDonations;
 	/**
 	 * Contains records of items referenced by id.
 	 */
@@ -156,7 +152,6 @@ public class Auction extends Statistics
       throw new IllegalArgumentException("Negative time is not allowed.");
     }
     this.auctionDuration = auctionDuration.toMillis();
-    this.cashDonations = new HashMap<Integer, Cash>();
     this.items = new HashMap<Integer, Item>();
     this.users = new HashMap<Integer, User>();
     this.lastType = -1;
@@ -164,6 +159,7 @@ public class Auction extends Statistics
     this.lastCriteria = null;
     initializeItems();
     initializeUsers();
+    this.start = false;
   }
   //Methods
 
@@ -199,6 +195,11 @@ public class Auction extends Statistics
     Bidder bidder = new Bidder(name,email,phone);
     
     this.users.put(bidder.ID, bidder);
+    if(!start)
+    {
+      this.writeUser(bidder.getId());
+      
+    }
 		return bidder.ID;
 	}
 
@@ -233,6 +234,7 @@ public class Auction extends Statistics
 	{
     Donor donor = new Donor(name,email,phone);
     this.users.put(donor.ID, donor);
+    
     return donor.ID;
 	}
 
@@ -261,48 +263,29 @@ public class Auction extends Statistics
 	{
 		Item item = new Item(name, description, appraisal, (Donor) users.get(donorId));
 		this.items.put(item.itemId, item);
-		return item.itemId;
+		if(!start)
+		{
+		  this.writeItem(item.itemId);
+		}
+	  return item.itemId;
 	}
 
-	/**
-	 * add a donation to the auction.
-	 * 
-   * @param amount the amount of money they are giving.
-	 * @param donorId id of the person donating.
-	 * @return an id for this donation.
-	 * 
-	 * @pre cashDonations is initialized
-	 * @pre amount > 0
-	 * @pre donorId represents a valid user
-	 * @pre donorId is valid
-	 */
-	@Deprecated
-	public int addCash(final double amount, final Integer donorId)
-	{
-	  if(!users.containsKey(donorId))
-	  {
-	    throw new IllegalArgumentException("no such donor exists");
-	  }
-	  else if(amount <= 0)
-	  {
-	    throw new IllegalArgumentException("amount must be posititve");
-	  }
-		Cash cash = new Cash(donorId, amount);
-		this.cashDonations.put(cash.getId(), cash);
-		return cash.getId();
-	}
 
 	/**
 	 * sets the list of items for this auction to the text file in assets.
 	 */
 	private void initializeItems()
 	{
+    File file = null;
+    FileReader fr = null;
+    BufferedReader br = null;
+    
 		try
 		{
-			File file = new File("assets/Items.txt");
+			file = new File("assets/Items.txt");
 
-			FileReader fr = new FileReader(file.getAbsolutePath());
-			BufferedReader br = new BufferedReader(fr);
+			fr = new FileReader(file.getAbsolutePath());
+			br = new BufferedReader(fr);
 			String str = br.readLine();
 			while (str != null) {
 				String[] ar = str.split("\\*");
@@ -320,6 +303,23 @@ public class Auction extends Statistics
 		{
 			e.printStackTrace();
 		}
+		try
+		{
+  		fr.close();
+		}
+		catch(Exception e)
+		{
+		  
+		}
+		try
+		{
+		  br.close();
+		}
+		catch(IOException e)
+		{
+		  
+		}
+		
 	}
 
 	/**
@@ -327,12 +327,15 @@ public class Auction extends Statistics
 	 */
 	private void initializeUsers()
 	{
+	  File file = null;
+	  FileReader fr = null;
+	  BufferedReader br = null;
 		try
 		{
-			File file = new File(BIDDER_FILE);
+			file = new File(BIDDER_FILE);
 
-			FileReader fr = new FileReader(file.getAbsolutePath());
-			BufferedReader br = new BufferedReader(fr);
+			fr = new FileReader(file.getAbsolutePath());
+			br = new BufferedReader(fr);
 			String str = br.readLine();
 			while (str != null) {
 				String[] ar = str.split("\\*");
@@ -351,6 +354,24 @@ public class Auction extends Statistics
 		{
 			e.printStackTrace();
 		}
+
+    try
+    {
+      fr.close();
+    }
+    catch(Exception e)
+    {
+      
+    }
+    try
+    {
+      br.close();
+    }
+    catch(IOException e)
+    {
+      
+    }
+    
 	}
 
 	/**
@@ -410,7 +431,7 @@ public class Auction extends Statistics
    *       been written to a file
    * @invariant the user represented by <code>userId</code> is unchanged.
    */
-	public void writeUser(final Integer userId)
+	private void writeUser(final Integer userId)
 	{
 		try
 		{
@@ -595,19 +616,6 @@ public class Auction extends Statistics
 		return totalBidsPlaced() / items.values().size();
 	}
 
-	/**
-	 * returns how long the event has been taking place.
-	 * 
-	 * @return the duration.
-	 * 
-	 * @post the output will be a valid textual representation of time.
-	 */
-	public String timeSoFar()
-	{
-		long millis = Math.min(System.currentTimeMillis() - auctionStart, auctionDuration);
-		Duration d = Duration.ofMillis(millis);
-		return d.toString();
-	}
 
 	/**
 	 * Returns the array of all items.
@@ -675,4 +683,5 @@ public class Auction extends Statistics
 	{
 		return 1.0 * getTotalBids() / items.size();
 	}
+	
 }

@@ -36,16 +36,6 @@ public class Donor extends User
 //Methods
   
   /**
-   * Allows the donor to make a donation of just cash.
-   * 
-   * @param cash the amount of money to be donated.
-   */
-  public void donate(final double cash)
-  {
-    this.donate(new Cash(this.getId(), cash));
-  }
-  
-  /**
    * Allows the donor to make a donation of an item.
    * 
    * @param contribution is the item to be donated.

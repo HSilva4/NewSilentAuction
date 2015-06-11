@@ -13,11 +13,12 @@ public class BidTest
 {
 	
 	Bid testbid;
+	private double myTolerance = 0.001;
 	
 	@Before
 	public void before()
 	{
-		testbid = new Bid(0621, 15.69);
+		testbid = new Bid(4444, 15.69);
 	}
 
 	@Test
@@ -30,35 +31,35 @@ public class BidTest
 	public void testGetAmount()
 	{
 		double amount = testbid.getAmount();
-		assertEquals(15.69, amount, 1);
+		assertEquals("Get Amount failed.", 15.69, amount, myTolerance);
 	}
 
 	@Test
 	public void testGetBidder()
 	{
-		double bidder = testbid.getBidder();
-		assertEquals(0621, bidder, 1);
+		int bidder = testbid.getBidder();
+		assertEquals("Get Bidder failed.", 4444, bidder);
 	}
 
 	@Test
 	public void testGetID()
 	{
 		int id = testbid.getId();
-		assertEquals(0621, id, 1);
+		assertTrue("Get ID failed.", id >= 0);
 	}
 
 	@Test
 	public void testGetDescription()
 	{
 		String description = testbid.getDescription();
-		assertEquals("None provided", description);
+		assertEquals("Get Description failed.", "None provided", description);
 	}
 
 	@Test
 	public void testGetUser()
 	{
 		int user = testbid.getUser();
-		assertEquals(0621, user, 1);
+		assertEquals("Get User failed.", 4444, user);
 	}
 
 	@Test
@@ -72,7 +73,7 @@ public class BidTest
 	public void testGetValue()
 	{
 		double value = testbid.getValue();
-		assertEquals(15.69, value, 1);
+		assertEquals("Get value failed.", 15.69, value, myTolerance);
 	}
 
 }

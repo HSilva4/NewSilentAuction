@@ -5,6 +5,9 @@ package backend;
 
 import static org.junit.Assert.*;
 
+import java.time.Duration;
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,22 +17,13 @@ import org.junit.Test;
  */
 public class AuctionTest 
 {
-  Auction myAuction;
+  Auction testAuction;
   /**
    * @throws java.lang.Exception
    */
   @Before
   public void setUp() throws Exception {
-    myAuction = new Auction(10000);
-  }
-
-  /**
-   * Test method for {@link backend.Auction#getHighestBid()}.
-   */
-  @Test
-  public final void testGetHighestBid() 
-  {
-    // nothing to do
+    testAuction = new Auction(10000);
   }
   
   /**
@@ -38,7 +32,6 @@ public class AuctionTest
   @Test
   public final void testGetTotalBids() 
   {
-    Auction testAuction = new Auction(100000);
     int total = testAuction.getTotalBids();
     assertTrue("getTotalBids returns: " + total, total >= 0);
   }
@@ -49,7 +42,6 @@ public class AuctionTest
   @Test
   public final void testGetAverageBids() 
   {
-    Auction testAuction = new Auction(100000);
     
     double total = testAuction.getAverageBids();
     assertTrue("getAverageBids returns: " + total, total >= 0);
@@ -61,7 +53,7 @@ public class AuctionTest
   @Test
   public final void testAuctionLong() 
   {
-    long i = 1;
+    long i = 10000;
     String m = null;
     try
     {
@@ -84,6 +76,7 @@ public class AuctionTest
     {
       fail("should have failed at: " + i + "\n");
     }
+    //Auction test = new Auction(i);
     
   }
   
@@ -93,63 +86,122 @@ public class AuctionTest
   @Test
   public final void testAuctionDuration() 
   {
-    fail("Not yet implemented"); // TODO
+
+    Duration d = Duration.ofMillis(10000);
+    String m = null;
+    try
+    {
+      new Auction(d);
+    }
+    catch(Exception e)
+    {
+      fail("failed at: " + d + "\n" + e.getMessage());
+    }
+    d = Duration.ofMillis(-1);
+    try
+    {
+      new Auction(d);
+    }
+    catch(Exception e)
+    {
+      m = e.getMessage();
+    }
+    if(m == null)
+    {
+      fail("should have failed at: " + d + "\n");
+    }
   }
   
   /**
    * Test method for {@link backend.Auction#addBidder(java.lang.String, java.lang.String, java.lang.String)}.
    */
   @Test
-  public final void testAddBidder() {
-    fail("Not yet implemented"); // TODO
+  public final void testAddBidder() 
+  {
+    testAuction.addBidder("bob", "bob@email.com", "3606217751");
+    boolean found = false;
+    for(User user : testAuction.users.values())//testAuction.users.size() > 0;
+    {
+      if(user.name.equals("bob") && user.phone.equals("3606217751") && 
+          user.email.equals("bob@email.com"))
+      {
+        found = true;
+        break;
+      }
+    }
+    
+    assertTrue("new bidder not found", found);
   }
   
   /**
    * Test method for {@link backend.Auction#addDonor(java.lang.String, java.lang.String, java.lang.String)}.
    */
   @Test
-  public final void testAddDonor() {
-    fail("Not yet implemented"); // TODO
+  public final void testAddDonor() 
+  {
+
+    testAuction.addDonor("bob", "bob@email.com", "3606217751");
+    boolean found = false;
+    for(User user : testAuction.users.values())//testAuction.users.size() > 0;
+    {
+      if(user.name.equals("bob") && user.phone.equals("3606217751") && 
+          user.email.equals("bob@email.com"))
+      {
+        found = true;
+        break;
+      }
+    }
+    
+    assertTrue("new bidder not found", found);
   }
   
   /**
    * Test method for {@link backend.Auction#addItem(java.lang.String, java.lang.String, double, java.lang.Integer)}.
    */
   @Test
-  public final void testAddItem() {
-    fail("Not yet implemented"); // TODO
-  }
-  
-  /**
-   * Test method for {@link backend.Auction#addCash(double, java.lang.Integer)}.
-   */
-  @Test
-  public final void testAddCash() {
-    fail("Not yet implemented"); // TODO
-  }
-  
-  /**
-   * Test method for {@link backend.Auction#writeItem(java.lang.Integer)}.
-   */
-  @Test
-  public final void testWriteItem() {
-    fail("Not yet implemented"); // TODO
-  }
-  
-  /**
-   * Test method for {@link backend.Auction#writeUser(java.lang.Integer)}.
-   */
-  @Test
-  public final void testWriteUser() {
-    fail("Not yet implemented"); // TODO
+  public final void testAddItem() 
+  {
+    //public int addItem(final String name, final String description, 
+    //  final double appraisal, final Integer donorId)
+    
+    boolean found = false;
+    Donor donor = null;
+    int id = testAuction.addDonor("donor", "email@email.com", "1234567");
+    donor = (Donor) testAuction.users.get(id);
+    testAuction.addItem("cash", "$$$$$$", 1000, donor.ID);
+    for(Item item : testAuction.items.values())
+    {
+      if(item.getName().equals("cash") 
+          && item.getDescription().equals("$$$$$$") 
+          && item.getAppraisal() == 1000
+          && item.getDonor() == donor)
+      {
+        found = true;
+        break;
+      }
+        
+    }
+    
+    assertTrue("no item added", found);
   }
   
   /**
    * Test method for {@link backend.Auction#filter(int, java.lang.String)}.
    */
   @Test
-  public final void testFilter() {
-    fail("Not yet implemented"); // TODO
+  public final void testFilter() 
+  {
+    ArrayList<Item> items = testAuction.filter(Auction.NAME, "");
+    Item last = null;
+    
+    for(Item item : items)
+    {
+      
+      assertTrue("incorrect ordering", 
+          last == null || 
+          last.getName().compareToIgnoreCase(item.getName()) <= 0);
+      last = item;
+    }
   }
   
   /**
@@ -157,7 +209,8 @@ public class AuctionTest
    */
   @Test
   public final void testTotalBidsPlaced() {
-    fail("Not yet implemented"); // TODO
+	  Auction testAuction = new Auction(100000);
+	  assertTrue(testAuction.totalBidsPlaced() >= 0);
   }
   
   /**
@@ -165,23 +218,10 @@ public class AuctionTest
    */
   @Test
   public final void testAverageBidsPlaced() {
-    fail("Not yet implemented"); // TODO
+	  Auction testAuction = new Auction(100000);
+	  assertTrue(testAuction.averageBidsPlaced() >= 0);
+	 
   }
   
-  /**
-   * Test method for {@link backend.Auction#timeSoFar()}.
-   */
-  @Test
-  public final void testTimeSoFar() {
-    fail("Not yet implemented"); // TODO
-  }
-  
-  /**
-   * Test method for {@link backend.Auction#getAllItems()}.
-   */
-  @Test
-  public final void testGetAllItems() {
-    fail("Not yet implemented"); // TODO
-  }
   
 }

@@ -22,7 +22,7 @@ public class ItemTest {
 	@Test
 	public void testItemStringStringDoubleDonor() {
 		Assert.assertEquals("The name must be AlienWare Laptop", "AlienWare Laptop", item.getName());
-		Assert.assertEquals("The ID must be 0", 0, item.getId());
+		Assert.assertTrue("The ID must be > 0", item.getId() >= 0);
 		Assert.assertEquals("The description must be 'So tech'", "So tech", item.getDescription());
 		Assert.assertEquals("The appraisal must be $100", 100, item.getAppraisal(), 0);
 	}

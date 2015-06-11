@@ -32,12 +32,13 @@ public class BidderTest {
 	 */
 	@Test
 	public void testBidderStringStringString() {
+		myBidder = new Bidder("Sally", "Sally@live.com", "5554321", 1234);
         assertEquals("Three argument constructor failed.", "Sally",
-                new Bidder("Sally", "Sally@live.com", "5554321").name);
+        		myBidder.name);
         assertEquals("Three argument constructor failed.", "Sally@live.com",
-                new Bidder("Sally", "Sally@live.com", "5554321").email);
+        		myBidder.email);
         assertEquals("Three argument constructor failed.", "5554321",
-                new Bidder("Sally", "Sally@live.com", "5554321").phone);
+        		myBidder.phone);
 	}
 
 	/**
@@ -45,14 +46,15 @@ public class BidderTest {
 	 */
 	@Test
 	public void testBidderStringStringStringInt() {
+		myBidder = new Bidder("Sally", "Sally@live.com", "5554321", 1234);
         assertEquals("Four argument constructor failed.", "Sally",
-                new Bidder("Sally", "Sally@live.com", "5554321", 1234).name);
+                myBidder.name);
         assertEquals("Four argument constructor failed.", "Sally@live.com",
-                new Bidder("Sally", "Sally@live.com", "5554321", 1234).email);
+        		myBidder.email);
         assertEquals("Four argument constructor failed.", "5554321",
-                new Bidder("Sally", "Sally@live.com", "5554321", 1234).phone);
+        		myBidder.phone);
         assertEquals("Four argument constructor failed.", 1234,
-                new Bidder("Sally", "Sally@live.com", "5554321", 1234).ID);
+        		myBidder.ID);
         
 	}
 
@@ -63,14 +65,15 @@ public class BidderTest {
 	 */
 	@Test
 	public void testUserStringStringString() {
+		myBidder = new Bidder("Sally", "Sally@live.com", "5554321", 1234);
         assertEquals("Three argument constructor failed.", "Sally",
-                new Bidder("Sally", "Sally@live.com", "5554321").name);
+        		myBidder.name);
         assertEquals("Three argument constructor failed.", "Sally@live.com",
-                new Bidder("Sally", "Sally@live.com", "5554321").email);
+        		myBidder.email);
         assertEquals("Three argument constructor failed.", "5554321",
-                new Bidder("Sally", "Sally@live.com", "5554321").phone);
-        assertTrue("Three argument constructor failed.",
-        		myBidder.ID > 999 && myBidder.ID < 10000);
+        		myBidder.phone);
+        assertEquals("Three argument constructor failed.", 1234,
+        		myBidder.ID);
 	}
 
 	/**
@@ -78,14 +81,15 @@ public class BidderTest {
 	 */
 	@Test
 	public void testUserStringStringStringInt() {
+		myBidder = new Bidder("Sally", "Sally@live.com", "5554321", 1234);
         assertEquals("Four argument constructor failed.", "Sally",
-                new Bidder("Sally", "Sally@live.com", "5554321", 1234).name);
+        		myBidder.name);
         assertEquals("Four argument constructor failed.", "Sally@live.com",
-                new Bidder("Sally", "Sally@live.com", "5554321", 1234).email);
+        		myBidder.email);
         assertEquals("Four argument constructor failed.", "5554321",
-                new Bidder("Sally", "Sally@live.com", "5554321", 1234).phone);
+        		myBidder.phone);
         assertEquals("Four argument constructor failed.", 1234,
-                new Bidder("Sally", "Sally@live.com", "5554321", 1234).ID);
+        		myBidder.ID);
 	}
 
 	/**

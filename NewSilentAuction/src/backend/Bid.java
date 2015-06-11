@@ -40,7 +40,7 @@ public class Bid extends Contribution
 	 * 
 	 * @return the bidders id.
 	 */
-	public double getBidder()
+	public int getBidder()
 	{
 		return super.getUser();
 	}
