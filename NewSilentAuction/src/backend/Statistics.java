@@ -14,7 +14,16 @@ public abstract class Statistics
 	
 	//Holds the average bid, the highest bid, amount of bids, and the average bid.
 	double bidAverage;
+	/**
+	 * @return
+	 */
 	public abstract Item getHighestBid();
+	/**
+	 * @return
+	 */
 	public abstract int getTotalBids();
+	/**
+	 * @return
+	 */
 	public abstract double getAverageBids();
 }

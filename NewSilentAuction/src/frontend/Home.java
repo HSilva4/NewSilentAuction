@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * This class creates the home 'page' which will hold all of the items that are able to be bid on.
  * 
- * @author The Expendables
+ * @author Hannah Silva, Conner Martin
  * @version 0.0.0.1
  * @since 20.05.2015
  */

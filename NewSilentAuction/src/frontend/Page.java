@@ -21,7 +21,7 @@ import backend.*;
 /**
  * This class is the main frame for our silent auction software for TCSS 360.
  * 
- * @author The Expendables
+ * @author Hannah Silva, Conner Martin
  * @version 0.0.0.1
  * @since 20.05.2015
  */
