@@ -3,7 +3,7 @@ package backend;
 /**
  * This class is a parent class for stats.
  * 
- * @author The Expendables
+ * @author Christopher Ottersen
  * @version 0.0.0.1
  * @since 20.05.2015
  */

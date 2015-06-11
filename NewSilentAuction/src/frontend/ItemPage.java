@@ -23,7 +23,8 @@ import java.awt.event.KeyEvent;
 /**
  * This class creates the item 'page' where you can see some info and bid.
  * 
- * @author Hannah Silva, Conner Martin
+ * @author Hannah Silva
+ * @author Conner Martin
  * @version 0.0.0.1
  * @since 20.05.2015
  */

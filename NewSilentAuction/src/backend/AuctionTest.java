@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author owner
+ * @author Christopher Ottersen
  *
  */
 public class AuctionTest 
@@ -206,6 +206,7 @@ public class AuctionTest
   
   /**
    * Test method for {@link backend.Auction#totalBidsPlaced()}.
+   * @author Robert Gillis
    */
   @Test
   public final void testTotalBidsPlaced() {
@@ -215,6 +216,7 @@ public class AuctionTest
   
   /**
    * Test method for {@link backend.Auction#averageBidsPlaced()}.
+   * @author Robert Gillis
    */
   @Test
   public final void testAverageBidsPlaced() {

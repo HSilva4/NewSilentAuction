@@ -24,7 +24,8 @@ import backend.Item;
 /**
  * This class creates the General Statistics 'page' that shows stats for the event itself.
  * 
- * @author Hannah Silva, Conner Martin
+ * @author Hannah Silva
+ * @author Conner Martin
  * @version 0.0.0.1
  * @since 20.05.2015
  */

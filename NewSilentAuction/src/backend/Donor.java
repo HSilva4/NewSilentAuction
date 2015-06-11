@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * This class creates a new donor.
  * 
- * @author The Expendables
+ * @author Robert Gillis
  * @version 0.0.0.1
  * @since 20.05.2015
  */
