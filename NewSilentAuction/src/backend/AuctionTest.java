@@ -5,6 +5,7 @@ package backend;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -13,6 +14,15 @@ import org.junit.Test;
  */
 public class AuctionTest 
 {
+  Auction myAuction;
+  /**
+   * @throws java.lang.Exception
+   */
+  @Before
+  public void setUp() throws Exception {
+    myAuction = new Auction(10000);
+  }
+
   /**
    * Test method for {@link backend.Auction#getHighestBid()}.
    */
@@ -40,6 +50,7 @@ public class AuctionTest
   public final void testGetAverageBids() 
   {
     Auction testAuction = new Auction(100000);
+    
     double total = testAuction.getAverageBids();
     assertTrue("getAverageBids returns: " + total, total >= 0);
   }
@@ -50,34 +61,30 @@ public class AuctionTest
   @Test
   public final void testAuctionLong() 
   {
-    long i = 0;
-    for(i = 0; i < 1000000; i++)
+    long i = 1;
+    String m = null;
+    try
     {
-      try
-      {
-        new Auction(i);
-      }
-      catch(Exception e)
-      {
-        fail("failed at: " + i + "\n" + e.getMessage());
-      }
+      new Auction(i);
     }
-    for(i = -1; i >= -1000000; i--)
+    catch(Exception e)
     {
-      String m = null;
-      try
-      {
-        new Auction(i);
-      }
-      catch(Exception e)
-      {
-        m = e.getMessage();
-      }
-      if(m != null)
-      {
-        fail("should have failed at: " + i + "\n");
-      }
+      fail("failed at: " + i + "\n" + e.getMessage());
     }
+    i = -1;
+    try
+    {
+      new Auction(i);
+    }
+    catch(Exception e)
+    {
+      m = e.getMessage();
+    }
+    if(m == null)
+    {
+      fail("should have failed at: " + i + "\n");
+    }
+    
   }
   
   /**
